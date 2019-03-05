@@ -1,0 +1,1 @@
+{"rustc":9124257941019211279,"features":"[\"default\", \"getopts\"]","target":12600277491341102057,"profile":5060393583489210841,"path":10415272593798945074,"deps":[],"local":[{"MtimeBased":[[1551803947,831785564],".fingerprint/pulldown-cmark-fb823ca5d36410cf/dep-build-script-build_script_build-fb823ca5d36410cf"]}],"rustflags":[],"edition":"Edition2018"}

@@ -1,0 +1,9 @@
+[package]
+name = "fuzzing"
+version = "0.1.0"
+authors = ["Marcus Klaas <mail@marcusklaas.nl>"]
+edition = "2018"
+
+[dependencies]
+honggfuzz = "0.5.42"
+pulldown-cmark = {path = ".."}

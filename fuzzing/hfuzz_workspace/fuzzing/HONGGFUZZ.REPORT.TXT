@@ -1,0 +1,42 @@
+=====================================================================
+TIME: 2019-03-05.17:43:35
+=====================================================================
+FUZZER ARGS:
+ mutationsPerRun : 6
+ externalCmd     : NULL
+ fuzzStdin       : FALSE
+ timeout         : 10 (sec)
+ ignoreAddr      : (nil)
+ ASLimit         : 0 (MiB)
+ RSSLimit        : 0 (MiB)
+ DATALimit       : 0 (MiB)
+ wordlistFile    : NULL
+ dynFileMethod: 
+ fuzzTarget   : hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing 
+ORIG_FNAME: [DYNAMIC]
+FUZZ_FNAME: hfuzz_workspace/fuzzing/SIGABRT.PC.7ffff7dc353f.STACK.19cf4301e0.CODE.-6.ADDR.(nil).INSTR.mov____0x108(%rsp),%rcx.fuzz
+PID: 652
+SIGNAL: SIGABRT (6)
+FAULT ADDRESS: (nil)
+INSTRUCTION: mov____0x108(%rsp),%rcx
+STACK HASH: 00000019cf4301e0
+STACK:
+ <0x00007ffff7dad895> [[UNKNOWN]():0 at /usr/lib64/libc-2.28.so]
+ <0x0000555555567fa7> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x00005555555624a6> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555555e257> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x00005555555668d9> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555559de5> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555559cd8> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555556825a> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555559e36> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555555a24c> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555559d6d> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555555a38d> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555566243> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555556825a> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x0000555555566cfd> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x000055555555a35b> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+ <0x00007ffff7daf413> [[UNKNOWN]():0 at /usr/lib64/libc-2.28.so]
+ <0x00005555555599ae> [[UNKNOWN]():0 at /home/marcus/pulldown-cmark/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzzing]
+=====================================================================
