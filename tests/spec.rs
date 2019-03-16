@@ -3,6 +3,8 @@
 
 extern crate pulldown_cmark;
 
+include!("normalize_html.rs.inc");
+
 
     #[test]
     fn spec_test_1() {
@@ -19,11 +21,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -41,11 +44,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -65,11 +69,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -93,11 +98,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -122,11 +128,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -146,11 +153,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -172,11 +180,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -196,11 +205,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -229,11 +239,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -250,11 +261,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -271,11 +283,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -296,11 +309,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -321,11 +335,12 @@ ___
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -342,11 +357,12 @@ ___
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -363,11 +379,12 @@ ___
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -388,11 +405,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -413,11 +431,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -435,11 +454,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -458,11 +478,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -479,11 +500,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -500,11 +522,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -521,11 +544,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -542,11 +566,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -563,11 +588,12 @@ __</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -590,11 +616,12 @@ a------
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -611,11 +638,12 @@ a------
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -640,11 +668,12 @@ a------
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -665,11 +694,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -689,11 +719,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -718,11 +749,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -745,11 +777,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -776,11 +809,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -797,11 +831,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -821,11 +856,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -842,11 +878,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -863,11 +900,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -884,11 +922,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -909,11 +948,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -931,11 +971,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -954,11 +995,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -977,11 +1019,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1000,11 +1043,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1021,11 +1065,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1042,11 +1087,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1063,11 +1109,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1088,11 +1135,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1113,11 +1161,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1138,11 +1187,12 @@ Bar foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1163,11 +1213,12 @@ Bar foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1189,11 +1240,12 @@ Foo *bar*
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1213,11 +1265,12 @@ baz</em></h1>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1239,11 +1292,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1269,11 +1323,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1299,11 +1354,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1321,11 +1377,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1344,11 +1401,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1372,11 +1430,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1394,11 +1453,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1416,11 +1476,12 @@ Foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1446,11 +1507,12 @@ of dashes"/>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1471,11 +1533,12 @@ of dashes"/>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1498,11 +1561,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1523,11 +1587,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1547,11 +1612,12 @@ Bar</h2>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1576,11 +1642,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1598,11 +1665,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1621,11 +1689,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1646,11 +1715,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1670,11 +1740,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1695,11 +1766,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1717,11 +1789,12 @@ Baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1744,11 +1817,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1773,11 +1847,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1800,11 +1875,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1827,11 +1903,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1851,11 +1928,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1879,11 +1957,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1909,11 +1988,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1937,11 +2017,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1971,11 +2052,12 @@ chunk3
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -1997,11 +2079,12 @@ chunk3
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2021,11 +2104,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2045,11 +2129,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2077,11 +2162,12 @@ Heading
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2101,11 +2187,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2127,11 +2214,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2149,11 +2237,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2175,11 +2264,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2201,11 +2291,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2224,11 +2315,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2250,11 +2342,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2276,11 +2369,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2302,11 +2396,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2328,11 +2423,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2349,11 +2445,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2376,11 +2473,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2404,11 +2502,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2430,11 +2529,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2452,11 +2552,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2478,11 +2579,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2506,11 +2608,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2534,11 +2637,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2560,11 +2664,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2584,11 +2689,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2608,11 +2714,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2633,11 +2740,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2656,11 +2764,12 @@ aaa</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2681,11 +2790,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2709,11 +2819,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2738,11 +2849,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2766,11 +2878,12 @@ end
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2794,11 +2907,12 @@ end
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2816,11 +2930,12 @@ end
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2839,11 +2954,12 @@ foo</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2863,11 +2979,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2887,11 +3004,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2919,11 +3037,12 @@ _world_.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2955,11 +3074,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -2980,11 +3100,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3003,11 +3124,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3030,11 +3152,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3055,11 +3178,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3080,11 +3204,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3106,11 +3231,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3129,11 +3255,12 @@ okay.
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3152,11 +3279,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3175,11 +3303,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3196,11 +3325,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3221,11 +3351,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3248,11 +3379,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3273,11 +3405,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3298,11 +3431,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3323,11 +3457,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3346,11 +3481,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3371,11 +3507,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3398,11 +3535,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3419,11 +3557,12 @@ int x = 33;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3452,11 +3591,12 @@ main = print $ parseTags tags
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3483,11 +3623,12 @@ document.getElementById("demo").innerHTML = "Hello JavaScript!";
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3516,11 +3657,12 @@ p {color:blue;}
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3543,11 +3685,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3571,11 +3714,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3598,11 +3742,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3621,11 +3766,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3644,11 +3790,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3669,11 +3816,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3698,11 +3846,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3729,11 +3878,12 @@ okay
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3750,11 +3900,12 @@ okay
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3795,11 +3946,12 @@ function matchwo(a,b)
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3820,11 +3972,12 @@ function matchwo(a,b)
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3845,11 +3998,12 @@ function matchwo(a,b)
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3872,11 +4026,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3899,11 +4054,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3924,11 +4080,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3951,11 +4108,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -3976,11 +4134,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4013,11 +4172,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4051,11 +4211,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4074,11 +4235,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4099,11 +4261,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4122,11 +4285,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4147,11 +4311,12 @@ Hi
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4178,11 +4343,12 @@ line2
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4205,11 +4371,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4229,11 +4396,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4253,11 +4421,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4277,11 +4446,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4300,11 +4470,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4323,11 +4494,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4347,11 +4519,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4370,11 +4543,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4393,11 +4567,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4413,11 +4588,12 @@ with blank line'
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4437,11 +4613,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4458,11 +4635,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4480,11 +4658,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4505,11 +4684,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4532,11 +4712,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4558,11 +4739,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4584,11 +4766,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4614,11 +4797,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4639,11 +4823,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4663,11 +4848,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4691,11 +4877,12 @@ ddd</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4716,11 +4903,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4739,11 +4927,12 @@ bbb</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4764,11 +4953,12 @@ ccc</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4787,11 +4977,12 @@ bbb</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4811,11 +5002,12 @@ bbb
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4834,11 +5026,12 @@ bbb</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4863,11 +5056,12 @@ aaa
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4890,11 +5084,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4917,11 +5112,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4944,11 +5140,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4970,11 +5167,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -4997,11 +5195,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5024,11 +5223,12 @@ foo</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5049,11 +5249,12 @@ foo</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5078,11 +5279,12 @@ foo</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5105,11 +5307,12 @@ foo</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5132,11 +5335,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5157,11 +5361,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5179,11 +5384,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5203,11 +5409,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5228,11 +5435,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5256,11 +5464,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5281,11 +5490,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5307,11 +5517,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5332,11 +5543,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5361,11 +5573,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5386,11 +5599,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5412,11 +5626,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5438,11 +5653,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5467,11 +5683,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5498,11 +5715,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5527,11 +5745,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5559,11 +5778,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5595,11 +5815,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5621,11 +5842,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5649,11 +5871,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5676,11 +5899,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5704,11 +5928,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5736,11 +5961,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5766,11 +5992,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5790,11 +6017,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5819,11 +6047,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5858,11 +6087,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5893,11 +6123,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5916,11 +6147,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5937,11 +6169,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5960,11 +6193,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -5983,11 +6217,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6004,11 +6239,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6033,11 +6269,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6062,11 +6299,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6091,11 +6329,12 @@ paragraph
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6124,11 +6363,12 @@ paragraph
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6157,11 +6397,12 @@ paragraph
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6181,11 +6422,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6207,11 +6449,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6235,11 +6478,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6273,11 +6517,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6297,11 +6542,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6323,11 +6569,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6350,11 +6597,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6377,11 +6625,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6404,11 +6653,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6427,11 +6677,12 @@ bar
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6455,11 +6706,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6491,11 +6743,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6527,11 +6780,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6563,11 +6817,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6595,11 +6850,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6631,11 +6887,12 @@ with two lines.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6656,11 +6913,12 @@ with two lines.</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6687,11 +6945,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6718,11 +6977,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6756,11 +7016,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6785,11 +7046,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6813,11 +7075,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6840,11 +7103,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6867,11 +7131,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6898,11 +7163,12 @@ continued here.</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6929,11 +7195,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6958,11 +7225,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -6987,11 +7255,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7014,11 +7283,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7037,11 +7307,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7062,11 +7333,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7098,11 +7370,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7137,11 +7410,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7172,11 +7446,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7212,11 +7487,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7247,11 +7523,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7282,11 +7559,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7313,11 +7591,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7347,11 +7626,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7381,11 +7661,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7413,11 +7694,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7449,11 +7731,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7484,11 +7767,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7520,11 +7804,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7555,11 +7840,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7586,11 +7872,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7621,11 +7908,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7644,11 +7932,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7672,11 +7961,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7703,11 +7993,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7735,11 +8026,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7777,11 +8069,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7798,11 +8091,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7819,11 +8113,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7840,11 +8135,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7875,11 +8171,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7896,11 +8193,12 @@ baz</li>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7919,11 +8217,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7940,11 +8239,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7962,11 +8262,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -7986,11 +8287,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8007,11 +8309,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8028,11 +8331,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8049,11 +8353,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8072,11 +8377,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8096,11 +8402,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8109,7 +8416,7 @@ foo
 &frac34; &HilbertSpace; &DifferentialD;
 &ClockwiseContourIntegral; &ngE;
 "##;
-        let expected = r##"<p>  &amp; © Æ Ď
+        let expected = r##"<p>  &amp; © Æ Ď
 ¾ ℋ ⅆ
 ∲ ≧̸</p>
 "##;
@@ -8121,11 +8428,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8142,11 +8450,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8163,11 +8472,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8190,11 +8500,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8211,11 +8522,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8232,11 +8544,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8253,11 +8566,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8274,11 +8588,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8297,11 +8612,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8321,11 +8637,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8342,11 +8659,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8364,11 +8682,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8385,11 +8704,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8406,11 +8726,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8427,11 +8748,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8448,11 +8770,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8469,18 +8792,19 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
     fn spec_test_323() {
-        let original = r##"` b `
+        let original = r##"` b `
 "##;
-        let expected = r##"<p><code> b </code></p>
+        let expected = r##"<p><code> b </code></p>
 "##;
 
         use pulldown_cmark::{Parser, html, Options};
@@ -8490,11 +8814,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8515,11 +8840,12 @@ baz
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8538,11 +8864,12 @@ foo
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8560,11 +8887,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8581,11 +8909,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8602,11 +8931,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8623,11 +8953,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8644,11 +8975,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8665,11 +8997,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8686,11 +9019,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8707,11 +9041,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8728,11 +9063,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8749,11 +9085,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8770,11 +9107,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8791,11 +9129,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8812,11 +9151,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8833,11 +9173,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8854,11 +9195,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8875,18 +9217,19 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
     fn spec_test_342() {
-        let original = r##"* a *
+        let original = r##"* a *
 "##;
-        let expected = r##"<p>* a *</p>
+        let expected = r##"<p>* a *</p>
 "##;
 
         use pulldown_cmark::{Parser, html, Options};
@@ -8896,11 +9239,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8917,11 +9261,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8938,11 +9283,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8959,11 +9305,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -8980,11 +9327,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9001,11 +9349,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9022,11 +9371,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9043,11 +9393,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9064,11 +9415,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9085,11 +9437,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9106,11 +9459,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9127,11 +9481,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9148,11 +9503,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9171,11 +9527,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9192,11 +9549,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9213,11 +9571,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9234,11 +9593,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9255,11 +9615,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9276,11 +9637,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9297,11 +9659,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9318,11 +9681,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9339,11 +9703,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9360,11 +9725,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9381,11 +9747,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9402,11 +9769,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9423,11 +9791,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9444,11 +9813,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9465,11 +9835,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9486,11 +9857,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9507,11 +9879,12 @@ baz`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9530,11 +9903,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9551,11 +9925,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9572,11 +9947,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9593,11 +9969,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9614,11 +9991,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9635,11 +10013,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9656,11 +10035,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9677,11 +10057,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9698,11 +10079,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9719,11 +10101,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9742,11 +10125,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9763,11 +10147,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9784,11 +10169,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9805,11 +10191,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9826,11 +10213,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9847,11 +10235,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9868,11 +10257,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9889,11 +10279,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9910,11 +10301,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9931,11 +10323,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9952,11 +10345,12 @@ foo bar__</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9975,11 +10369,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -9996,11 +10391,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10017,11 +10413,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10038,11 +10435,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10059,11 +10457,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10080,11 +10479,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10101,11 +10501,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10122,11 +10523,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10143,11 +10545,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10164,11 +10567,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10185,11 +10589,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10206,11 +10611,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10227,11 +10633,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10248,11 +10655,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10269,11 +10677,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10290,11 +10699,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10313,11 +10723,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10334,11 +10745,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10355,11 +10767,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10376,11 +10789,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10397,11 +10811,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10418,11 +10833,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10439,11 +10855,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10460,11 +10877,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10481,11 +10899,12 @@ bar</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10504,11 +10923,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10525,11 +10945,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10546,11 +10967,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10567,11 +10989,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10588,11 +11011,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10609,11 +11033,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10630,11 +11055,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10651,11 +11077,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10672,11 +11099,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10693,11 +11121,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10714,11 +11143,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10735,11 +11165,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10756,11 +11187,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10777,11 +11209,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10798,11 +11231,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10819,11 +11253,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10840,11 +11275,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10861,11 +11297,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10882,11 +11319,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10903,11 +11341,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10924,11 +11363,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10945,11 +11385,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10966,11 +11407,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -10987,11 +11429,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11008,11 +11451,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11029,11 +11473,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11050,11 +11495,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11071,11 +11517,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11092,11 +11539,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11113,11 +11561,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11134,11 +11583,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11155,11 +11605,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11176,11 +11627,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11197,11 +11649,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11218,11 +11671,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11239,11 +11693,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11260,11 +11715,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11281,11 +11737,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11302,11 +11759,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11323,11 +11781,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11344,11 +11803,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11365,11 +11825,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11386,11 +11847,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11407,11 +11869,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11428,11 +11891,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11449,11 +11913,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11470,11 +11935,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11491,11 +11957,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11512,11 +11979,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11533,11 +12001,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11554,11 +12023,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11575,11 +12045,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11596,11 +12067,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11617,11 +12089,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11638,11 +12111,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11659,11 +12133,12 @@ bim</em> bop</strong></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11682,11 +12157,12 @@ bar)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11705,11 +12181,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11726,11 +12203,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11747,11 +12225,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11768,11 +12247,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11789,11 +12269,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11810,11 +12291,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11837,11 +12319,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11858,11 +12341,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11879,11 +12363,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11900,11 +12385,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11925,11 +12411,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11946,16 +12433,17 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
     fn spec_test_487() {
-        let original = r##"[link](/url "title")
+        let original = r##"[link](/url "title")
 "##;
         let expected = r##"<p><a href="/url%C2%A0%22title%22">link</a></p>
 "##;
@@ -11967,11 +12455,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -11988,11 +12477,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12009,11 +12499,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12031,11 +12522,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12052,11 +12544,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12073,11 +12566,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12094,11 +12588,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12115,11 +12610,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12136,11 +12632,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12157,11 +12654,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12178,11 +12676,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12199,11 +12698,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12220,11 +12720,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12241,11 +12742,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12262,11 +12764,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12283,11 +12786,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12304,11 +12808,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12325,11 +12830,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12346,11 +12852,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12367,11 +12874,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12390,11 +12898,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12413,11 +12922,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12436,11 +12946,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12459,11 +12970,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12482,11 +12994,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12505,11 +13018,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12528,11 +13042,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12551,11 +13066,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12574,11 +13090,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12597,11 +13114,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12620,11 +13138,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12643,11 +13162,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12666,11 +13186,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12689,11 +13210,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12713,11 +13235,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12736,11 +13259,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12761,11 +13285,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12786,11 +13311,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12809,11 +13335,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12833,11 +13360,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12857,11 +13385,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12881,11 +13410,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12904,11 +13434,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12927,11 +13458,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12951,11 +13483,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -12979,11 +13512,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13002,11 +13536,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13025,11 +13560,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13048,11 +13584,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13073,11 +13610,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13096,11 +13634,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13119,11 +13658,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13142,11 +13682,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13165,11 +13706,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13188,11 +13730,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13211,11 +13754,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13234,11 +13778,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13257,11 +13802,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13281,11 +13827,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13304,11 +13851,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13327,11 +13875,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13350,11 +13899,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13373,11 +13923,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13397,11 +13948,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13421,11 +13973,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13442,11 +13995,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13465,11 +14019,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13486,11 +14041,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13507,11 +14063,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13530,11 +14087,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13553,11 +14111,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13574,11 +14133,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13595,11 +14155,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13616,11 +14177,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13637,11 +14199,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13660,11 +14223,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13683,11 +14247,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13706,11 +14271,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13729,11 +14295,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13752,11 +14319,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13777,11 +14345,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13800,11 +14369,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13823,11 +14393,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13847,11 +14418,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13870,11 +14442,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13893,11 +14466,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13916,11 +14490,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13937,11 +14512,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13958,11 +14534,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -13979,11 +14556,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14000,11 +14578,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14021,11 +14600,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14042,11 +14622,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14063,11 +14644,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14084,11 +14666,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14105,11 +14688,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14126,11 +14710,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14147,11 +14732,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14168,11 +14754,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14189,11 +14776,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14210,11 +14798,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14231,11 +14820,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14252,11 +14842,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14273,11 +14864,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14294,11 +14886,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14315,11 +14908,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14336,11 +14930,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14357,11 +14952,12 @@ bar>)</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14380,11 +14976,12 @@ data="foo" ></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14403,11 +15000,12 @@ _boolean zoop:33=zoop:33 /></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14424,11 +15022,12 @@ _boolean zoop:33=zoop:33 /></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14445,11 +15044,12 @@ _boolean zoop:33=zoop:33 /></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14466,11 +15066,12 @@ _boolean zoop:33=zoop:33 /></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14487,11 +15088,12 @@ _boolean zoop:33=zoop:33 /></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14514,11 +15116,12 @@ bim!bop /&gt;</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14535,11 +15138,12 @@ bim!bop /&gt;</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14556,11 +15160,12 @@ bim!bop /&gt;</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14577,11 +15182,12 @@ bim!bop /&gt;</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14600,11 +15206,12 @@ comment - with hyphen --></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14621,11 +15228,12 @@ comment - with hyphen --></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14645,11 +15253,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14666,11 +15275,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14687,11 +15297,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14708,11 +15319,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14729,11 +15341,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14750,11 +15363,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14771,11 +15385,12 @@ foo <!-- foo--->
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14794,11 +15409,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14817,11 +15433,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14840,11 +15457,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14863,11 +15481,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14886,11 +15505,12 @@ bar</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14909,11 +15529,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14932,11 +15553,12 @@ bar</em></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14954,11 +15576,12 @@ span`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14976,11 +15599,12 @@ span`
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -14999,11 +15623,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15022,11 +15647,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15043,11 +15669,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15064,11 +15691,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15085,11 +15713,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15106,11 +15735,12 @@ bar"></p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15129,11 +15759,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15152,11 +15783,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15173,11 +15805,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15194,11 +15827,12 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -15215,9 +15849,10 @@ baz</p>
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }

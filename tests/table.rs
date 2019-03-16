@@ -3,6 +3,8 @@
 
 extern crate pulldown_cmark;
 
+include!("normalize_html.rs.inc");
+
 
     #[test]
     fn table_test_1() {
@@ -19,11 +21,12 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
@@ -31,7 +34,7 @@ extern crate pulldown_cmark;
         let original = r##"Test|Table
 ----|-----
 "##;
-        let expected = r##"<table><thead><tr><td>Test</td><td>Table</td></tr></thead>
+        let expected = r##"<table><thead><tr><th>Test</th><th>Table</th></tr></thead>
 </table>
 "##;
 
@@ -42,45 +45,16 @@ extern crate pulldown_cmark;
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
     fn table_test_3() {
-        let original = r##"Test|Table
-----|-----
-Test row
-Test|2
-
-Test ending
-"##;
-        let expected = r##"<table><thead><tr><td>Test</td><td>Table</td></tr></thead>
-<tr><td>Test row</td></tr>
-<tr><td>Test</td><td>2</td></tr>
-</table>
-<p>Test ending</p>
-"##;
-
-        use pulldown_cmark::{Parser, html, Options};
-
-        let mut s = String::new();
-
-        let mut opts = Options::empty();
-        opts.insert(Options::ENABLE_TABLES);
-        opts.insert(Options::ENABLE_FOOTNOTES);
-
-        let p = Parser::new_ext(&original, opts);
-        html::push_html(&mut s, p);
-
-        assert_eq!(expected, s);
-    }
-
-    #[test]
-    fn table_test_4() {
         let original = r##"> Test  | Table
 > ------|------
 > Row 1 | Every
@@ -89,7 +63,7 @@ Test ending
 > Paragraph
 "##;
         let expected = r##"<blockquote>
-<table><thead><tr><td>Test  </td><td> Table</td></tr></thead>
+<table><thead><tr><th>Test  </th><th> Table</th></tr></thead>
 <tr><td>Row 1 </td><td> Every</td></tr>
 <tr><td>Row 2 </td><td> Day</td></tr>
 </table>
@@ -104,15 +78,16 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_5() {
+    fn table_test_4() {
         let original = r##" 1. First entry
  2. Second entry
 
@@ -127,7 +102,7 @@ Test ending
 </li>
 <li>
 <p>Second entry</p>
-<table><thead><tr><td>Col 1</td><td>Col 2</td></tr></thead>
+<table><thead><tr><th>Col 1</th><th>Col 2</th></tr></thead>
 <tr><td>Row 1</td><td>Part 2</td></tr>
 <tr><td>Row 2</td><td>Part 2</td></tr>
 </table>
@@ -142,21 +117,22 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_6() {
+    fn table_test_5() {
         let original = r##"|Col 1|Col 2|
 |-----|-----|
 |R1C1 |R1C2 |
 |R2C1 |R2C2 |
 "##;
-        let expected = r##"<table><thead><tr><td>Col 1</td><td>Col 2</td></tr></thead>
+        let expected = r##"<table><thead><tr><th>Col 1</th><th>Col 2</th></tr></thead>
 <tr><td>R1C1 </td><td>R1C2 </td></tr>
 <tr><td>R2C1 </td><td>R2C2 </td></tr>
 </table>
@@ -169,21 +145,22 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_7() {
+    fn table_test_6() {
         let original = r##"| Col 1 | Col 2 |
 |-------|-------|
 |       |       |
 |       |       |
 "##;
-        let expected = r##"<table><thead><tr><td> Col 1 </td><td> Col 2 </td></tr></thead>
+        let expected = r##"<table><thead><tr><th> Col 1 </th><th> Col 2 </th></tr></thead>
 <tr><td>       </td><td>       </td></tr>
 <tr><td>       </td><td>       </td></tr>
 </table>
@@ -196,21 +173,22 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_8() {
+    fn table_test_7() {
         let original = r##"| Col 1 | Col 2 |
 |-------|-------|
 |   x   |       |
 |       |    x  |
 "##;
-        let expected = r##"<table><thead><tr><td> Col 1 </td><td> Col 2 </td></tr></thead>
+        let expected = r##"<table><thead><tr><th> Col 1 </th><th> Col 2 </th></tr></thead>
 <tr><td>   x   </td><td>       </td></tr>
 <tr><td>       </td><td>    x  </td></tr>
 </table>
@@ -223,21 +201,22 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_9() {
+    fn table_test_8() {
         let original = r##"|Col 1|Col 2|
 |-----|-----|
 |✓    |✓    |
 |✓    |✓    |
 "##;
-        let expected = r##"<table><thead><tr><td>Col 1</td><td>Col 2</td></tr></thead>
+        let expected = r##"<table><thead><tr><th>Col 1</th><th>Col 2</th></tr></thead>
 <tr><td>✓    </td><td>✓    </td></tr>
 <tr><td>✓    </td><td>✓    </td></tr>
 </table>
@@ -250,15 +229,16 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_10() {
+    fn table_test_9() {
         let original = r##"|  Target                       | std |rustc|cargo| notes                      |
 |-------------------------------|-----|-----|-----|----------------------------|
 | `x86_64-unknown-linux-musl`   |  ✓  |     |     | 64-bit Linux with MUSL     |
@@ -269,7 +249,7 @@ Test ending
 | `mips-unknown-linux-gnu`      |  ✓  |     |     | MIPS Linux (2.6.18+)       |
 | `mipsel-unknown-linux-gnu`    |  ✓  |     |     | MIPS (LE) Linux (2.6.18+)  |
 "##;
-        let expected = r##"<table><thead><tr><td>  Target                       </td><td> std </td><td>rustc</td><td>cargo</td><td> notes                      </td></tr></thead>
+        let expected = r##"<table><thead><tr><th>  Target                       </th><th> std </th><th>rustc</th><th>cargo</th><th> notes                      </th></tr></thead>
 <tr><td> <code>x86_64-unknown-linux-musl</code>   </td><td>  ✓  </td><td>     </td><td>     </td><td> 64-bit Linux with MUSL     </td></tr>
 <tr><td> <code>arm-linux-androideabi</code>       </td><td>  ✓  </td><td>     </td><td>     </td><td> ARM Android                </td></tr>
 <tr><td> <code>arm-unknown-linux-gnueabi</code>   </td><td>  ✓  </td><td>  ✓  </td><td>     </td><td> ARM Linux (2.6.18+)        </td></tr>
@@ -287,15 +267,16 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_11() {
+    fn table_test_10() {
         let original = r##"|-|-|
 |ぃ|い|
 "##;
@@ -310,20 +291,21 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_12() {
+    fn table_test_11() {
         let original = r##"|ぁ|ぃ|
 |-|-|
 |ぃ|ぃ|
 "##;
-        let expected = r##"<table><thead><tr><td>ぁ</td><td>ぃ</td></tr></thead>
+        let expected = r##"<table><thead><tr><th>ぁ</th><th>ぃ</th></tr></thead>
 <tr><td>ぃ</td><td>ぃ</td></tr>
 </table>
 "##;
@@ -335,20 +317,21 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
 
     #[test]
-    fn table_test_13() {
+    fn table_test_12() {
         let original = r##"|Колонка 1|Колонка 2|
 |---------|---------|
 |Ячейка 1 |Ячейка 2 |
 "##;
-        let expected = r##"<table><thead><tr><td>Колонка 1</td><td>Колонка 2</td></tr></thead>
+        let expected = r##"<table><thead><tr><th>Колонка 1</th><th>Колонка 2</th></tr></thead>
 <tr><td>Ячейка 1 </td><td>Ячейка 2 </td></tr>
 </table>
 "##;
@@ -360,9 +343,10 @@ Test ending
         let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
 
         let p = Parser::new_ext(&original, opts);
         html::push_html(&mut s, p);
 
-        assert_eq!(expected, s);
+        assert_eq!(normalize_html(&expected), normalize_html(&s));
     }
