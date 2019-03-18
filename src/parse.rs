@@ -22,6 +22,7 @@
 
 use std::collections::HashMap;
 use std::ops::Range;
+use std::sync::Arc;
 
 use unicase::UniCase;
 use memchr::memchr;
@@ -2238,7 +2239,7 @@ pub struct Parser<'a> {
     text: &'a str,
     tree: Tree<Item<'a>>,
     refdefs: HashMap<LinkLabel<'a>, LinkDef<'a>>,
-    broken_link_callback: Option<&'a Fn(&str, &str) -> Option<(String, String)>>,
+    broken_link_callback: Option<Arc<&'a (Fn(&str, &str) -> Option<(String, String)> + Sync)>>,
     offset: usize,
 }
 
@@ -2259,12 +2260,13 @@ impl<'a> Parser<'a> {
     pub fn new_with_broken_link_callback(
         text: &'a str,
         options: Options,
-        broken_link_callback: Option<&'a Fn(&str, &str) -> Option<(String, String)>>
+        callback: Option<&'a (Fn(&str, &str) -> Option<(String, String)> + Sync)>
     ) -> Parser<'a> {
         let first_pass = FirstPass::new(text, options);
         let (mut tree, refdefs) = first_pass.run();
+        let arc_callback = callback.map(|f| Arc::new(f));
         tree.reset();
-        Parser { text, tree, refdefs, broken_link_callback, offset: 0 }
+        Parser { text, tree, refdefs, broken_link_callback: arc_callback, offset: 0 }
     }
 
     pub fn get_offset(&self) -> usize {
@@ -2435,7 +2437,7 @@ impl<'a> Parser<'a> {
                                     let title = matching_def.title.as_ref().cloned().unwrap_or("".into());
                                     let url = matching_def.dest.clone();
                                     Some((link_type, url, title))
-                                } else if let Some(callback) = self.broken_link_callback {
+                                } else if let Some(callback) = &self.broken_link_callback {
                                     // looked for matching definition, but didn't find it. try to fix
                                     // link with callback, if it is defined
                                     if let Some((url, title)) = callback(link_label.as_ref(), link_label.as_ref()) {

@@ -28,6 +28,8 @@ use crate::parse::Event::*;
 use crate::strings::CowStr;
 use crate::escape::{escape_html, escape_href};
 
+use crossbeam;
+
 enum TableState {
     Head,
     Body,
@@ -400,12 +402,23 @@ where
 /// ```
 pub fn push_html<'a, I>(s: &mut String, iter: I)
 where
-    I: Iterator<Item = Event<'a>>,
+    I: Iterator<Item = Event<'a>> + Send,
 {
-    unsafe {
-        // we only write utf-8, so this should be OK
-        write_html(s.as_mut_vec(), iter).unwrap();
-    }
+    crossbeam::scope(move |scope| {
+        let (sender, receiver) = crossbeam::channel::bounded(128);
+
+        scope.spawn(move |_| {
+            for event in iter {
+                sender.send(event).unwrap();
+            }
+        });
+
+        unsafe {
+            // we only write utf-8, so this should be OK
+            write_html(s.as_mut_vec(), receiver.into_iter()).unwrap();
+        }
+    })
+    .unwrap();
 }
 
 /// Iterate over an `Iterator` of `Event`s, generate HTML for each `Event`, and

@@ -21,6 +21,7 @@ doc = false
 bitflags = "1.0"
 unicase = "2.2.0"
 memchr = "2.2"
+crossbeam = "0.7"
 getopts = { version = "0.2", optional = true }
 
 [dev-dependencies]
