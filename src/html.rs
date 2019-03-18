@@ -400,22 +400,34 @@ where
 /// </ul>
 /// "#);
 /// ```
-pub fn push_html<'a, I>(s: &mut String, iter: I)
+pub fn push_html<'a, I>(s: &mut String, mut iter: I)
 where
     I: Iterator<Item = Event<'a>> + Send,
 {
+    let chunk_size = 128;
+    let channel_size = 4;
+
     crossbeam::scope(move |scope| {
-        let (sender, receiver) = crossbeam::channel::bounded(128);
+        let (sender, receiver) = crossbeam::channel::bounded(channel_size);
 
         scope.spawn(move |_| {
-            for event in iter {
-                sender.send(event).unwrap();
-            }
+            let mut cont = true;
+            while cont {
+                let mut vek = Vec::with_capacity(chunk_size);
+                while let Some(event) = iter.next() {
+                    vek.push(event);
+                    if vek.len() == chunk_size {
+                        break;
+                    }                    
+                }
+                cont = vek.len() == chunk_size;
+                sender.send(vek).unwrap();
+            }            
         });
 
         unsafe {
             // we only write utf-8, so this should be OK
-            write_html(s.as_mut_vec(), receiver.into_iter()).unwrap();
+            write_html(s.as_mut_vec(), receiver.into_iter().flatten()).unwrap();
         }
     })
     .unwrap();
