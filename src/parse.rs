@@ -537,29 +537,29 @@ impl<'a> FirstPass<'a> {
     /// Parse a line of input, appending text and items to tree.
     ///
     /// Returns: index after line and an item representing the break.
-    fn parse_line(&mut self, mut ix: usize, inside_table: bool) -> (usize, Option<Item<'a>>) {
+    fn parse_line(&mut self, start: usize, inside_table: bool) -> (usize, Option<Item<'a>>) {
         let bytes = &self.text.as_bytes();
-        let start = ix;
         let mut pipes = 0;
         let mut last_pipe_ix = start;
         let mut begin_text = start;
-        while ix < self.text.len() {
+
+        let (final_ix, brk) = simd_match(bytes, start, |ix| {
             match bytes[ix] {
                 b'\r' | b'\n' | b'|' if inside_table => {
-                    break;
+                    return Err((0, None));
                 }
                 b'\n' | b'\r' => {
                     let mut i = ix;
                     let eol_bytes = scan_eol(&self.text[ix..]).0;
+                    let mut end_ix = ix + eol_bytes;
                     if ix >= begin_text + 1 && bytes[ix - 1] == b'\\' && ix + eol_bytes < self.text.len() {
                         i -= 1;
                         self.tree.append_text(begin_text, i);
-                        ix += eol_bytes;
-                        return (ix, Some(Item {
+                        return Err((eol_bytes, Some(Item {
                             start: i,
-                            end: ix,
+                            end: end_ix,
                             body: ItemBody::HardBreak,
-                        }));
+                        })));
                     } else if ix >= begin_text + 2
                         && is_ascii_whitespace_no_nl(bytes[ix - 1])
                         && is_ascii_whitespace_no_nl(bytes[ix - 2]) {
@@ -567,14 +567,12 @@ impl<'a> FirstPass<'a> {
                         while i > 0 && is_ascii_whitespace_no_nl(bytes[i - 1]) {
                             i -= 1;
                         }
-                        ix += eol_bytes;
                         self.tree.append_text(begin_text, i);
-
-                        return (ix, Some(Item {
+                        return Err((eol_bytes, Some(Item {
                             start: i,
-                            end: ix,
+                            end: end_ix,
                             body: ItemBody::HardBreak,
-                        }));
+                        })));
                     } else if self.options.contains(Options::ENABLE_TABLES) && !inside_table && pipes > 0 {
                         // check if we may be parsing a table
                         let next_line_ix = ix + eol_bytes;
@@ -589,23 +587,22 @@ impl<'a> FirstPass<'a> {
 
                             // make sure they match the number of columns we find in separator line
                             if alignment.len() == header_count {
-                                ix = table_head_ix + table_head_bytes;
-                                return (ix, Some(Item {
+                                end_ix = table_head_ix + table_head_bytes;
+                                return Err((end_ix - ix, Some(Item {
                                     start: i,
-                                    end: ix, // must update later
+                                    end: end_ix, // must update later
                                     body: ItemBody::Table(alignment),
-                                }));
+                                })));
                             }
                         }
                     }
-
+                        
                     self.tree.append_text(begin_text, ix);
-                    ix += eol_bytes;
-                    return (ix, Some(Item {
+                    Err((eol_bytes, Some(Item {
                         start: i,
-                        end: ix,
+                        end: end_ix,
                         body: ItemBody::SoftBreak,
-                    }));
+                    })))
                 }
                 b'\\' if ix + 1 < self.text.len() && is_ascii_punctuation(bytes[ix + 1]) => {
                     self.tree.append_text(begin_text, ix);
@@ -617,11 +614,7 @@ impl<'a> FirstPass<'a> {
                         });
                     }
                     begin_text = ix + 1;
-                    if bytes[ix + 1] == b'`' {
-                        ix += 1;
-                    } else {
-                        ix += 2;
-                    }
+                    Ok(if bytes[ix + 1] == b'`' { 0 } else { 1 })
                 }
                 c @ b'*' | c @ b'_' | c @ b'~' => {
                     let string_suffix = &self.text[ix..];
@@ -639,11 +632,9 @@ impl<'a> FirstPass<'a> {
                                 body: ItemBody::MaybeEmphasis(count - i, can_open, can_close),
                             });
                         }
-                        ix += count;
-                        begin_text = ix;
-                    } else {
-                        ix += count;
+                        begin_text = ix + count;
                     }
+                    Ok(count - 1)
                 }
                 b'`' => {
                     self.tree.append_text(begin_text, ix);
@@ -653,8 +644,8 @@ impl<'a> FirstPass<'a> {
                         end: ix + count,
                         body: ItemBody::MaybeCode(count),
                     });
-                    ix += count;
-                    begin_text = ix;
+                    begin_text = ix + count;
+                    Ok(count - 1)
                 }
                 b'<' => {
                     // Note: could detect some non-HTML cases and early escape here, but not
@@ -665,8 +656,8 @@ impl<'a> FirstPass<'a> {
                         end: ix + 1,
                         body: ItemBody::MaybeHtml,
                     });
-                    ix += 1;
-                    begin_text = ix;
+                    begin_text = ix + 1;
+                    Ok(0)
                 }
                 b'!' if ix + 1 < self.text.len() && bytes[ix + 1] == b'[' => {
                     self.tree.append_text(begin_text, ix);
@@ -675,8 +666,8 @@ impl<'a> FirstPass<'a> {
                         end: ix + 2,
                         body: ItemBody::MaybeImage,
                     });
-                    ix += 2;
-                    begin_text = ix;
+                    begin_text = ix + 2;
+                    Ok(1)
                 }
                 b'[' => {
                     self.tree.append_text(begin_text, ix);
@@ -685,8 +676,8 @@ impl<'a> FirstPass<'a> {
                         end: ix + 1,
                         body: ItemBody::MaybeLinkOpen,
                     });
-                    ix += 1;
-                    begin_text = ix;
+                    begin_text = ix + 1;
+                    Ok(0)
                 }
                 b']' => {
                     self.tree.append_text(begin_text, ix);
@@ -695,8 +686,8 @@ impl<'a> FirstPass<'a> {
                         end: ix + 1,
                         body: ItemBody::MaybeLinkClose,
                     });
-                    ix += 1;
-                    begin_text = ix;
+                    begin_text = ix + 1;
+                    Ok(0)
                 }
                 b'&' => {
                     match scan_entity(&self.text[ix..]) {
@@ -707,23 +698,26 @@ impl<'a> FirstPass<'a> {
                                 end: ix + n,
                                 body: ItemBody::SynthesizeText(value),
                             });
-                            ix += n;
-                            begin_text = ix;
+                            begin_text = ix + n;
+                            Ok(n - 1)
                         }
-                        _ => ix += 1
+                        _ => Ok(0),
                     }
                 }
                 b'|' if !inside_table => {
                     last_pipe_ix = ix;
                     pipes += 1;
-                    ix += 1;
+                    Ok(0)
                 }
-                _ => ix += 1,
+                _ => Ok(0),
             }
-        }
-        // need to close text at eof
-        self.tree.append_text(begin_text, ix);
-        (ix, None)
+        });
+
+        if brk.is_none() {
+            // need to close text at eof
+            self.tree.append_text(begin_text, final_ix);
+        }        
+        (final_ix, brk)
     }
 
     /// Check whether we should allow a paragraph interrupt by lists. Only non-empty
@@ -1337,6 +1331,26 @@ impl<'a> FirstPass<'a> {
         }
         None
     }
+}
+
+/// Calls callback on bytes. Breaks when callback returns Err(..). And skips the
+/// number of bytes in callback return value otherwise.
+/// This method returns final index and a possible break value.
+fn simd_match<F, T>(bytes: &[u8], mut ix: usize, mut callback: F) -> (usize, Option<T>)
+    where F: FnMut(usize) -> Result<usize, (usize, Option<T>)> 
+{
+    while ix < bytes.len() {
+        match callback(ix) {
+            Ok(skip) => {
+                ix += skip + 1;
+            }
+            Err((size, brk)) => {
+                return (ix + size, brk);
+            }
+        }
+    }
+
+    (ix, None)
 }
 
 /// Computes the number of header columns in a table line by computing the number of dividing pipes
