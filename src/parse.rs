@@ -202,6 +202,41 @@ impl<'a> Default for ItemBody<'a> {
     }
 }
 
+#[derive(Clone, Copy)]
+enum ByteType {
+    LineBreak,
+    Backslash,
+    Emphasis,
+    Backtick,
+    FishAngle,
+    Exclamation,
+    OpenBracket,
+    CloseBracket,
+    Pipe,
+    Ampersand,
+    Other,
+}
+
+const fn parse_line_lookup_table() -> [ByteType; 256] {
+    let mut byte_type_map: [ByteType; 256] = [ByteType::Other; 256];
+    byte_type_map[b'\n' as usize] = ByteType::LineBreak;
+    byte_type_map[b'\r' as usize] = ByteType::LineBreak;
+    byte_type_map[b'\\' as usize] = ByteType::Backslash;
+    byte_type_map[b'*'  as usize] = ByteType::Emphasis;
+    byte_type_map[b'_'  as usize] = ByteType::Emphasis;
+    byte_type_map[b'~'  as usize] = ByteType::Emphasis;
+    byte_type_map[b'`'  as usize] = ByteType::Backtick;
+    byte_type_map[b'<'  as usize] = ByteType::FishAngle;
+    byte_type_map[b'!'  as usize] = ByteType::Exclamation;
+    byte_type_map[b'['  as usize] = ByteType::OpenBracket;
+    byte_type_map[b']'  as usize] = ByteType::CloseBracket;
+    byte_type_map[b'|'  as usize] = ByteType::Pipe;
+    byte_type_map[b'&'  as usize] = ByteType::Ampersand;
+    byte_type_map
+}
+
+static BYTE_TYPE_MAP: [ByteType; 256] = parse_line_lookup_table();
+
 /// State for the first parsing pass.
 ///
 /// The first pass resolves all block structure, generating an AST. Within a block, items
@@ -544,11 +579,12 @@ impl<'a> FirstPass<'a> {
         let mut begin_text = start;
 
         let (final_ix, brk) = simd_match(bytes, start, |ix| {
-            match bytes[ix] {
-                b'\r' | b'\n' | b'|' if inside_table => {
-                    return Err((0, None));
-                }
-                b'\n' | b'\r' => {
+            match BYTE_TYPE_MAP[bytes[ix] as usize] {
+                ByteType::LineBreak => {
+                    if inside_table {
+                        return Err((0, None));
+                    }
+
                     let mut i = ix;
                     let eol_bytes = scan_eol(&self.text[ix..]).0;
                     let mut end_ix = ix + eol_bytes;
@@ -604,19 +640,24 @@ impl<'a> FirstPass<'a> {
                         body: ItemBody::SoftBreak,
                     })))
                 }
-                b'\\' if ix + 1 < self.text.len() && is_ascii_punctuation(bytes[ix + 1]) => {
-                    self.tree.append_text(begin_text, ix);
-                    if !inside_table || bytes[ix + 1] != b'|' {
-                        self.tree.append(Item {
-                            start: ix,
-                            end: ix + 1,
-                            body: ItemBody::Backslash,
-                        });
+                ByteType::Backslash => {
+                    if ix + 1 < self.text.len() && is_ascii_punctuation(bytes[ix + 1]) {
+                        self.tree.append_text(begin_text, ix);
+                        if !inside_table || bytes[ix + 1] != b'|' {
+                            self.tree.append(Item {
+                                start: ix,
+                                end: ix + 1,
+                                body: ItemBody::Backslash,
+                            });
+                        }
+                        begin_text = ix + 1;
+                        Ok(if bytes[ix + 1] == b'`' { 0 } else { 1 })
+                    } else {
+                        Ok(0)
                     }
-                    begin_text = ix + 1;
-                    Ok(if bytes[ix + 1] == b'`' { 0 } else { 1 })
                 }
-                c @ b'*' | c @ b'_' | c @ b'~' => {
+                ByteType::Emphasis => {
+                    let c = bytes[ix];
                     let string_suffix = &self.text[ix..];
                     let count = 1 + scan_ch_repeat(&string_suffix[1..], c);
                     let can_open = delim_run_can_open(&self.text, string_suffix, count, ix);
@@ -636,7 +677,7 @@ impl<'a> FirstPass<'a> {
                     }
                     Ok(count - 1)
                 }
-                b'`' => {
+                ByteType::Backtick => {
                     self.tree.append_text(begin_text, ix);
                     let count = 1 + scan_ch_repeat(&self.text[ix+1..], b'`');
                     self.tree.append(Item {
@@ -647,7 +688,7 @@ impl<'a> FirstPass<'a> {
                     begin_text = ix + count;
                     Ok(count - 1)
                 }
-                b'<' => {
+                ByteType::FishAngle => {
                     // Note: could detect some non-HTML cases and early escape here, but not
                     // clear that's a win.
                     self.tree.append_text(begin_text, ix);
@@ -659,17 +700,21 @@ impl<'a> FirstPass<'a> {
                     begin_text = ix + 1;
                     Ok(0)
                 }
-                b'!' if ix + 1 < self.text.len() && bytes[ix + 1] == b'[' => {
-                    self.tree.append_text(begin_text, ix);
-                    self.tree.append(Item {
-                        start: ix,
-                        end: ix + 2,
-                        body: ItemBody::MaybeImage,
-                    });
-                    begin_text = ix + 2;
-                    Ok(1)
+                ByteType::Exclamation => {
+                    if ix + 1 < self.text.len() && bytes[ix + 1] == b'[' {
+                        self.tree.append_text(begin_text, ix);
+                        self.tree.append(Item {
+                            start: ix,
+                            end: ix + 2,
+                            body: ItemBody::MaybeImage,
+                        });
+                        begin_text = ix + 2;
+                        Ok(1)
+                    } else {
+                        Ok(0)
+                    }
                 }
-                b'[' => {
+                ByteType::OpenBracket => {
                     self.tree.append_text(begin_text, ix);
                     self.tree.append(Item {
                         start: ix,
@@ -679,7 +724,7 @@ impl<'a> FirstPass<'a> {
                     begin_text = ix + 1;
                     Ok(0)
                 }
-                b']' => {
+                ByteType::CloseBracket => {
                     self.tree.append_text(begin_text, ix);
                     self.tree.append(Item {
                         start: ix,
@@ -689,7 +734,7 @@ impl<'a> FirstPass<'a> {
                     begin_text = ix + 1;
                     Ok(0)
                 }
-                b'&' => {
+                ByteType::Ampersand => {
                     match scan_entity(&self.text[ix..]) {
                         (n, Some(value)) => {
                             self.tree.append_text(begin_text, ix);
@@ -704,12 +749,16 @@ impl<'a> FirstPass<'a> {
                         _ => Ok(0),
                     }
                 }
-                b'|' if !inside_table => {
-                    last_pipe_ix = ix;
-                    pipes += 1;
-                    Ok(0)
+                ByteType::Pipe => {
+                    if inside_table {
+                        Err((0, None))
+                    } else {
+                        last_pipe_ix = ix;
+                        pipes += 1;
+                        Ok(0)
+                    }
                 }
-                _ => Ok(0),
+                ByteType::Other => Ok(0),
             }
         });
 
