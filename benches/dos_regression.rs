@@ -10,15 +10,12 @@ fn parse_md(text: &str, opts: Options) {
     Parser::new_ext(text, opts).count();
 }
 
-const RUNS: usize = 20;
-
-const BASE_SIZE: usize = 2000;
-
-const GROWTH_FACTOR: usize = 10;
-
 /// Parse times are allowed to grow by this factor greater than the
 /// increase in input size.
-const SLACK: f64 = 2.0;
+const SLACK: f64 = 2.5;
+const RUNS: usize = 10;
+const BASE_SIZE: usize = 4000;
+const GROWTH_FACTOR: usize = 20;
 
 fn measure_median_run(input: &str) -> time::Duration {
     let mut durations = (0..RUNS)
@@ -40,7 +37,17 @@ fn assert_linear_scaling(short: &str, long: &str) {
     let short_duration_median = measure_median_run(short);
     let long_duration_median = measure_median_run(long);
 
-    assert!(long_duration_median.as_micros() as f64 <= short_duration_median.as_micros() as f64 * scaling * SLACK);
+    let deadline = short_duration_median.as_micros() as f64 * scaling * SLACK;
+    let actual_parse_time = long_duration_median.as_micros() as f64;
+
+    if actual_parse_time > deadline {
+        eprintln!(
+            "Parse time grew by {:.2}x for {:.2}x larger input.",
+            actual_parse_time / short_duration_median.as_micros() as f64,
+            scaling
+        );
+        panic!("Possible superlinear parsing behaviour detected.");
+    }
 }
 
 fn simple_repetition_scaling_test(snip: &str) {
