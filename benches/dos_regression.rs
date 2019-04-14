@@ -10,11 +10,11 @@ fn parse_md(text: &str, opts: Options) {
     Parser::new_ext(text, opts).count();
 }
 
-const RUNS: usize = 100;
+const RUNS: usize = 20;
 
 /// Parse times are allowed to grow by this factor greater than the
 /// increase in input size.
-const SLACK: f64 = 2.0;
+const SLACK: f64 = 2.5;
 
 fn measure_median_run(input: &str) -> time::Duration {
     let mut durations = (0..RUNS)
@@ -70,65 +70,81 @@ fn pathological_strikethrough(_b: &mut test::Bencher) {
     simple_repetition_scaling_test("a***b~~");
 }
 
-// #[bench]
-// fn pathological_codeblocks1(_b: &mut test::Bencher) {
-//     // Note that `buf` grows quadratically with number of
-//     // iterations. The point here is that the render time shouldn't
-//     // grow faster than that.
-//     let mut buf = String::new();
-//     for i in 1..1000 {
-//         for _ in 0..i {
-//             buf.push('`');
-//         }
-//         buf.push(' ');
-//     }
+fn generate_pathological_codeblocks(size: usize) -> String {
+    let mut buf = String::new();
+    let mut i = 1;
 
-//     b.iter(|| render_html(&buf, Options::empty()));
-// }
+    while buf.len() < size {
+        for _ in 0..i {
+            buf.push('`');
+        }
+        buf.push(' ');
+        i += 1;
+    }
+
+    buf
+}
+
+#[bench]
+fn pathological_codeblocks1(_b: &mut test::Bencher) {
+    let input_short = generate_pathological_codeblocks(2_000);
+    let input_long = generate_pathological_codeblocks(20_000);
+
+    assert_linear_scaling(&input_short, &input_long);
+}
 
 #[bench]
 fn pathological_codeblocks2(_b: &mut test::Bencher) {
     simple_repetition_scaling_test("\\``");
 }
 
-// #[bench]
-// fn pathological_codeblocks3(_b: &mut test::Bencher) {
-//     let mut input = std::iter::repeat("`a`").take(4000).collect::<String>();
-//     input.push('`');
+#[bench]
+fn pathological_codeblocks3(_b: &mut test::Bencher) {
+    let mut input_short = std::iter::repeat("`a`").take(1_000).collect::<String>();
+    input_short.push('`');
+    let mut input_long = std::iter::repeat("`a`").take(10_000).collect::<String>();
+    input_long.push('`');
 
-//     b.iter(|| render_html(&input, Options::empty()));
-// }
+    assert_linear_scaling(&input_short, &input_long);
+}
 
-// #[bench]
-// fn pathological_hrules(_b: &mut test::Bencher) {
-//     let mut input = std::iter::repeat("* ").take(2000).collect::<String>();
-//     input.push('a');
+#[bench]
+fn pathological_hrules(_b: &mut test::Bencher) {
+    let mut input_short = std::iter::repeat("* ").take(1_000).collect::<String>();
+    input_short.push('a');
+    let mut input_long = std::iter::repeat("* ").take(10_000).collect::<String>();
+    input_long.push('a');
 
-//     b.iter(|| render_html(&input, Options::empty()));
-// }
+    assert_linear_scaling(&input_short, &input_long);
+}
 
 #[bench]
 fn pathological_link_titles(_b: &mut test::Bencher) {
     simple_repetition_scaling_test("[ (](");
 }
 
-// #[bench]
-// fn advanced_pathological_codeblocks(_b: &mut test::Bencher) {
-//     // Note that `buf` grows quadratically with number of
-//     // iterations. The point here is that the render time shouldn't
-//     // grow faster than that.
-//     let size = 120;
-//     let mut buf = String::new();
-//     for i in 1..size {
-//         for _ in 0..i {
-//             buf.push('`');
-//         }
-//         buf.push(' ');
-//     }
-//     for _ in 1..(size * size) {
-//         buf.push_str("*a* ");
-//     }
-//     eprintln!("str size: {}", buf.len());
+fn generate_pathological_codeblocks2(size: usize) -> String {
+    let mut buf = String::new();
+    let mut i = 1;
 
-//     b.iter(|| render_html(&buf, Options::empty()));
-// }
+    while buf.len() < size {
+        for _ in 0..i {
+            buf.push('`');
+        }
+        buf.push(' ');
+        i += 1;
+    }
+    for _ in 0..i {
+        buf.push_str("*a* ");
+    }
+
+    buf
+}
+
+#[bench]
+fn pathological_codeblocks4(_b: &mut test::Bencher) {
+    let input_short = generate_pathological_codeblocks2(4_000);
+    let input_long = generate_pathological_codeblocks2(40_000);
+
+    assert_linear_scaling(&input_short, &input_long);
+}
