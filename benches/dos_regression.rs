@@ -12,9 +12,13 @@ fn parse_md(text: &str, opts: Options) {
 
 const RUNS: usize = 20;
 
+const BASE_SIZE: usize = 2000;
+
+const GROWTH_FACTOR: usize = 10;
+
 /// Parse times are allowed to grow by this factor greater than the
 /// increase in input size.
-const SLACK: f64 = 2.5;
+const SLACK: f64 = 2.0;
 
 fn measure_median_run(input: &str) -> time::Duration {
     let mut durations = (0..RUNS)
@@ -40,8 +44,9 @@ fn assert_linear_scaling(short: &str, long: &str) {
 }
 
 fn simple_repetition_scaling_test(snip: &str) {
-    let input_short = std::iter::repeat(snip).take(1000).collect::<String>();
-    let input_long =  std::iter::repeat(snip).take(10_000).collect::<String>();
+    let reps = BASE_SIZE / snip.len();
+    let input_short = std::iter::repeat(snip).take(reps).collect::<String>();
+    let input_long =  std::iter::repeat(snip).take(reps * GROWTH_FACTOR).collect::<String>();
     assert_linear_scaling(&input_short, &input_long);
 }
 
@@ -87,8 +92,8 @@ fn generate_pathological_codeblocks(size: usize) -> String {
 
 #[bench]
 fn pathological_codeblocks1(_b: &mut test::Bencher) {
-    let input_short = generate_pathological_codeblocks(2_000);
-    let input_long = generate_pathological_codeblocks(20_000);
+    let input_short = generate_pathological_codeblocks(BASE_SIZE);
+    let input_long = generate_pathological_codeblocks(BASE_SIZE * GROWTH_FACTOR);
 
     assert_linear_scaling(&input_short, &input_long);
 }
@@ -100,9 +105,9 @@ fn pathological_codeblocks2(_b: &mut test::Bencher) {
 
 #[bench]
 fn pathological_codeblocks3(_b: &mut test::Bencher) {
-    let mut input_short = std::iter::repeat("`a`").take(1_000).collect::<String>();
+    let mut input_short = std::iter::repeat("`a`").take(BASE_SIZE / 3).collect::<String>();
     input_short.push('`');
-    let mut input_long = std::iter::repeat("`a`").take(10_000).collect::<String>();
+    let mut input_long = std::iter::repeat("`a`").take(BASE_SIZE * GROWTH_FACTOR / 3).collect::<String>();
     input_long.push('`');
 
     assert_linear_scaling(&input_short, &input_long);
@@ -110,9 +115,9 @@ fn pathological_codeblocks3(_b: &mut test::Bencher) {
 
 #[bench]
 fn pathological_hrules(_b: &mut test::Bencher) {
-    let mut input_short = std::iter::repeat("* ").take(1_000).collect::<String>();
+    let mut input_short = std::iter::repeat("* ").take(BASE_SIZE / 2).collect::<String>();
     input_short.push('a');
-    let mut input_long = std::iter::repeat("* ").take(10_000).collect::<String>();
+    let mut input_long = std::iter::repeat("* ").take(BASE_SIZE * GROWTH_FACTOR / 2).collect::<String>();
     input_long.push('a');
 
     assert_linear_scaling(&input_short, &input_long);
@@ -143,8 +148,8 @@ fn generate_pathological_codeblocks2(size: usize) -> String {
 
 #[bench]
 fn pathological_codeblocks4(_b: &mut test::Bencher) {
-    let input_short = generate_pathological_codeblocks2(4_000);
-    let input_long = generate_pathological_codeblocks2(40_000);
+    let input_short = generate_pathological_codeblocks2(BASE_SIZE);
+    let input_long = generate_pathological_codeblocks2(BASE_SIZE * GROWTH_FACTOR);
 
     assert_linear_scaling(&input_short, &input_long);
 }
