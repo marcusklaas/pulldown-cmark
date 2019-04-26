@@ -21,8 +21,9 @@
 //! Command line tool to exercise pulldown-cmark.
 
 extern crate getopts;
-
 extern crate pulldown_cmark;
+
+mod dos_regression;
 
 use pulldown_cmark::Parser;
 use pulldown_cmark::Options;
@@ -196,6 +197,7 @@ pub fn main() {
     let args: Vec<_> = env::args().collect();
     let mut opts = getopts::Options::new();
     opts.optflag("h", "help", "this help message");
+    opts.optflag("r", "regression-test", "run dos regression tests");
     opts.optflag("d", "dry-run", "dry run, produce no output");
     opts.optflag("e", "events", "print event sequence instead of rendering");
     opts.optflag("T", "enable-tables", "enable GitHub-style tables");
@@ -223,7 +225,10 @@ pub fn main() {
     if matches.opt_present("help") {
         println!("{}", opts.usage(&brief(&args[0])));
         return;
+    } else if matches.opt_present("regression-test") {
+        return dos_regression::run();
     }
+
     let mut opts = Options::empty();
     if matches.opt_present("enable-tables") {
         opts.insert(Options::ENABLE_TABLES);

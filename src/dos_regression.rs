@@ -1,8 +1,3 @@
-#![feature(test)]
-
-extern crate pulldown_cmark;
-extern crate test;
-
 use pulldown_cmark::{Parser, Options};
 use std::time;
 
@@ -57,28 +52,23 @@ fn simple_repetition_scaling_test(snip: &str) {
     assert_linear_scaling(&input_short, &input_long);
 }
 
-#[bench]
-fn pathological_links(_b: &mut test::Bencher) {
+fn pathological_links() {
     simple_repetition_scaling_test("[a](<");
 }
 
-#[bench]
-fn pathological_emphasis(_b: &mut test::Bencher) {
+fn pathological_emphasis1() {
     simple_repetition_scaling_test("a***");
 }
 
-#[bench]
-fn pathological_emphasis2(_b: &mut test::Bencher) {
+fn pathological_emphasis2() {
     simple_repetition_scaling_test("a***_b__");
 }
 
-#[bench]
-fn pathological_emphasis3(_b: &mut test::Bencher) {
+fn pathological_emphasis3() {
     simple_repetition_scaling_test("[*_a");
 }
 
-#[bench]
-fn pathological_strikethrough(_b: &mut test::Bencher) {
+fn pathological_strikethrough() {
     simple_repetition_scaling_test("a***b~~");
 }
 
@@ -97,21 +87,18 @@ fn generate_pathological_codeblocks(size: usize) -> String {
     buf
 }
 
-#[bench]
-fn pathological_codeblocks1(_b: &mut test::Bencher) {
+fn pathological_codeblocks1() {
     let input_short = generate_pathological_codeblocks(BASE_SIZE);
     let input_long = generate_pathological_codeblocks(BASE_SIZE * GROWTH_FACTOR);
 
     assert_linear_scaling(&input_short, &input_long);
 }
 
-#[bench]
-fn pathological_codeblocks2(_b: &mut test::Bencher) {
+fn pathological_codeblocks2() {
     simple_repetition_scaling_test("\\``");
 }
 
-#[bench]
-fn pathological_codeblocks3(_b: &mut test::Bencher) {
+fn pathological_codeblocks3() {
     let mut input_short = std::iter::repeat("`a`").take(BASE_SIZE / 3).collect::<String>();
     input_short.push('`');
     let mut input_long = std::iter::repeat("`a`").take(BASE_SIZE * GROWTH_FACTOR / 3).collect::<String>();
@@ -120,8 +107,7 @@ fn pathological_codeblocks3(_b: &mut test::Bencher) {
     assert_linear_scaling(&input_short, &input_long);
 }
 
-#[bench]
-fn pathological_hrules(_b: &mut test::Bencher) {
+fn pathological_hrules() {
     let mut input_short = std::iter::repeat("* ").take(BASE_SIZE / 2).collect::<String>();
     input_short.push('a');
     let mut input_long = std::iter::repeat("* ").take(BASE_SIZE * GROWTH_FACTOR / 2).collect::<String>();
@@ -130,8 +116,7 @@ fn pathological_hrules(_b: &mut test::Bencher) {
     assert_linear_scaling(&input_short, &input_long);
 }
 
-#[bench]
-fn pathological_link_titles(_b: &mut test::Bencher) {
+fn pathological_link_titles() {
     simple_repetition_scaling_test("[ (](");
 }
 
@@ -153,10 +138,24 @@ fn generate_pathological_codeblocks2(size: usize) -> String {
     buf
 }
 
-#[bench]
-fn pathological_codeblocks4(_b: &mut test::Bencher) {
+fn pathological_codeblocks4() {
     let input_short = generate_pathological_codeblocks2(BASE_SIZE);
     let input_long = generate_pathological_codeblocks2(BASE_SIZE * GROWTH_FACTOR);
 
     assert_linear_scaling(&input_short, &input_long);
+}
+
+// TODO: catch panics and report them nicely
+pub fn run() {
+    pathological_links();
+    pathological_emphasis1();
+    pathological_emphasis2();
+    pathological_emphasis3();
+    pathological_strikethrough();
+    pathological_codeblocks1();
+    pathological_codeblocks2();
+    pathological_codeblocks3();
+    pathological_codeblocks4();
+    pathological_hrules();
+    pathological_link_titles();
 }
