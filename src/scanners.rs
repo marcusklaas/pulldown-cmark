@@ -645,32 +645,30 @@ pub fn scan_entity(bytes: &[u8]) -> (usize, Option<CowStr<'static>>) {
 }
 
 // note: dest returned is raw, still needs to be unescaped
-pub fn scan_link_dest(data: &str, start_ix: usize) -> Option<(usize, &str)> {
+// TODO: check that nested parens are really not allowed for refdefs
+pub fn scan_link_dest(data: &str, start_ix: usize, max_next: usize) -> Option<(usize, &str)> {
     let bytes = &data.as_bytes()[start_ix..];
     let mut i = scan_ch(bytes, b'<');
     let pointy = i != 0;
     let dest_beg = i;
-    let mut in_parens = false;
+    let mut nest = 0;
+
     while i < bytes.len() {
         match bytes[i] {
             b'\n' | b'\r' => break,
-            b' ' => {
-                if !pointy && !in_parens { break; }
+            b' ' if !pointy && nest == 0 => {
+                break;
             }
-            b'(' => {
-                if !pointy {
-                    if in_parens { return None; }
-                    in_parens = true;
-                }
+            b'(' if !pointy => {
+                if nest > max_next { return None; }
+                nest += 1;
             }
-            b')' => {
-                if !pointy {
-                    if !in_parens { break; }
-                    in_parens = false;
-                }
+            b')' if !pointy => {
+                if nest == 0 { break; }
+                nest -= 1;
             }
-            b'>' => {
-                if pointy { break; }
+            b'>' if pointy => {
+                break;
             }
             b'\\' => i += 1,
             _ => ()
