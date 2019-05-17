@@ -347,41 +347,47 @@ impl<'a> FirstPass<'a> {
         let ix = start_ix + line_start.bytes_scanned();
         let fst_byte = self.text.as_bytes()[ix];
 
-        // TODO(performance): would writing this as a match be faster?
-        if fst_byte == b'<' {
-            // Types 1-5 are all detected by one function and all end with the same
-            // pattern
-            if let Some(html_end_tag_ix) = get_html_end_tag(&bytes[ix..]) {
-                return self.parse_html_block_type_1_to_5(ix, html_end_tag_ix, remaining_space);
-            }
+        match fst_byte {
+            b'<' => {
+                // Types 1-5 are all detected by one function and all end with the same
+                // pattern
+                if let Some(html_end_tag_ix) = get_html_end_tag(&bytes[ix..]) {
+                    return self.parse_html_block_type_1_to_5(ix, html_end_tag_ix, remaining_space);
+                }
 
-            // Detect type 6
-            let possible_tag = scan_html_block_tag(&bytes[ix..]).1;
-            if is_html_tag(possible_tag) {
-                return self.parse_html_block_type_6_or_7(ix, remaining_space);
-            }
+                // Detect type 6
+                let possible_tag = scan_html_block_tag(&bytes[ix..]).1;
+                if is_html_tag(possible_tag) {
+                    return self.parse_html_block_type_6_or_7(ix, remaining_space);
+                }
 
-            // Detect type 7
-            if let Some(_html_bytes) = scan_html_type_7(&bytes[ix..]) {
-                return self.parse_html_block_type_6_or_7(ix, remaining_space);
+                // Detect type 7
+                if let Some(_html_bytes) = scan_html_type_7(&bytes[ix..]) {
+                    return self.parse_html_block_type_6_or_7(ix, remaining_space);
+                }
+            } 
+            b'*' | b'-' | b'_' => {
+                if let Ok(n) = scan_hrule(&bytes[ix..]) {
+                    return self.parse_hrule(n, ix);
+                }
             }
-        } else if fst_byte == b'*' || fst_byte == b'-' || fst_byte == b'_' {
-            if let Ok(n) = scan_hrule(&bytes[ix..]) {
-                return self.parse_hrule(n, ix);
+            b'#' => {
+                if let Some((atx_size, atx_level)) = scan_atx_heading(&bytes[ix..]) {
+                    return self.parse_atx_heading(ix, atx_level, atx_size);
+                }
             }
-        } else if fst_byte == b'#' {
-            if let Some((atx_size, atx_level)) = scan_atx_heading(&bytes[ix..]) {
-                return self.parse_atx_heading(ix, atx_level, atx_size);
+            b'[' => {
+                if let Some((bytecount, label, link_def)) = self.parse_refdef_total(ix) {
+                    self.allocs.refdefs.entry(label).or_insert(link_def);
+                    return ix + bytecount;
+                }
             }
-        } else if fst_byte == b'[' {
-            if let Some((bytecount, label, link_def)) = self.parse_refdef_total(ix) {
-                self.allocs.refdefs.entry(label).or_insert(link_def);
-                return ix + bytecount;
+            b'`' | b'~' => {
+                if let Some((n, fence_ch)) = scan_code_fence(&bytes[ix..]) {
+                    return self.parse_fenced_code_block(ix, indent, fence_ch, n);
+                }
             }
-        } else if fst_byte == b'`' || fst_byte == b'~' {
-            if let Some((n, fence_ch)) = scan_code_fence(&bytes[ix..]) {
-                return self.parse_fenced_code_block(ix, indent, fence_ch, n);
-            }
+            _ => {}
         }
     
         self.parse_paragraph(ix)
