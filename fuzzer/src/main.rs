@@ -156,7 +156,8 @@ fn regression_test() -> i32 {
 //    check_result(test("[{}]:\\a"));
     // https://github.com/raphlinus/pulldown-cmark/issues/296
     check_result(test("[](<"));
-    return exit_code;
+
+    exit_code
 }
 
 /// Start fuzzing on given number of threads in parallel.
@@ -211,7 +212,7 @@ fn fuzz(num_cpus: usize) {
                     }
                 }
 
-                // measure and print thruput
+                // measure and print throughput
                 let batches_finished = num_batches_finished.load(Ordering::Relaxed);
                 let patterns_finished = batches_finished * BATCH_SIZE as u64;
                 let elapsed_secs = start_time.elapsed().as_secs();
@@ -285,6 +286,11 @@ fn test(pattern: &str) -> PatternResult {
     let mut time_samples = [(0.0, 0.0); SAMPLE_SIZE];
     let mut res = PatternResult::TooLong;
 
+    // Test a pattern a number of times until its first negative
+    // to reduce the number of false positives. This allows us to keep
+    // the threshold relatively low since the false positive rate
+    // drops exponentially with the number of retests (assuming independence
+    // of false positive occurrence).
     for _ in 0..TEST_COUNT {
         res = test_pattern(pattern, &mut time_samples);
 
