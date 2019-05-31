@@ -158,6 +158,7 @@ fn regression_test() -> i32 {
     check_result(test("[](<"));
     check_result(test("[\"[]]\\("));
     check_result(test(")-\r%<["));
+    check_result(test("\u{0}[@[{<"));
     exit_code
 }
 
