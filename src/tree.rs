@@ -28,7 +28,7 @@ impl TreePointer {
 pub struct TreeIndex(NonZeroUsize);
 
 impl TreeIndex {
-    fn new(i: usize) -> Self {
+    pub(crate) fn new(i: usize) -> Self {
         TreeIndex(NonZeroUsize::new(i).unwrap())
     }
 

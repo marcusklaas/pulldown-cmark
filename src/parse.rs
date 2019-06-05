@@ -31,6 +31,13 @@ use crate::scanners::*;
 use crate::tree::{TreePointer, TreeIndex, Tree};
 use crate::linklabel::{scan_link_label, scan_link_label_rest, LinkLabel, ReferenceLabel};
 
+// Allowing arbitrary depth nested parentheses inside link destinations
+// can create denial of service vulnerabilities if we're not careful.
+// The simplest countermeasure is to limit their depth, which is
+// explicitly allowed by the spec as long as the limit is at least 3:
+// https://spec.commonmark.org/0.29/#link-destination
+const LINK_MAX_NESTED_PARENS: usize = 5;
+
 #[derive(Clone, Debug, PartialEq)]
 pub enum Tag<'a> {
     // block-level tags
@@ -1243,11 +1250,11 @@ impl<'a> FirstPass<'a> {
         let (mut i, _newlines) = self.scan_refdef_space(&bytes, start)?;
 
         // scan link dest
-        let (dest_length, dest) = scan_link_dest(&self.text, i, 1)?;
+        // FIXME: don't create bogus treeIndex
+        let (dest_length, dest) = scan_link_dest(&self.tree, TreePointer::Nil, &self.text[i..], 1)?;
         if dest_length == 0 {
             return None;
         }
-        let dest = unescape(dest);
         i += dest_length;
 
         // no title
@@ -1474,6 +1481,7 @@ impl InlineStack {
                 tree[el.start + i].item.body = ItemBody::Text;
             }
         }
+        self.lower_bounds = [0; 7];
     }
 
     fn get_lowerbound(&self, c: u8, count: usize, both: bool) -> usize {
@@ -1941,8 +1949,9 @@ impl<'a> Parser<'a> {
                             continue;
                         }
                         let next = self.tree[cur_ix].next;
+                        let link_scan = scan_inline_link(&self.tree, next, self.text, self.tree[cur_ix].item.end);
 
-                        if let Some((next_ix, url, title)) = scan_inline_link(self.text, self.tree[cur_ix].item.end) {
+                        if let Some((next_ix, url, title)) = link_scan {
                             let next_node = scan_nodes_to_ix(&self.tree, next, next_ix);
                             if let TreePointer::Valid(prev_ix) = prev {
                                 self.tree[prev_ix].next = TreePointer::Nil;
@@ -2495,6 +2504,207 @@ impl<'a> Iterator for Parser<'a> {
             }
         }
     }
+}
+
+// returns (bytes scanned, title cow)
+fn scan_link_title(text: &str, start_ix: usize) -> Option<(usize, CowStr<'_>)> {
+    let bytes = text.as_bytes();
+    let open = match bytes.get(start_ix) {
+        Some(b @ b'\'') | Some(b @ b'\"') | Some(b @ b'(') => *b,
+        _ => return None,
+    };
+    let close = if open == b'(' { b')' } else { open };
+
+    let mut title = String::new();
+    let mut mark = start_ix + 1;
+    let mut i = start_ix + 1;
+
+    while i < bytes.len() {
+        let c = bytes[i];
+
+        if c == close {
+            let cow = if mark == 1 {
+                (i - start_ix + 1, text[mark..i].into())
+            } else {
+                title.push_str(&text[mark..i]);
+                (i - start_ix + 1, title.into())
+            };
+            
+            return Some(cow);
+        }
+        if c == open {
+            return None;
+        }
+
+        // TODO: do b'\r' as well?
+        if c == b'&' {
+            if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                title.push_str(&text[mark..i]);
+                title.push_str(&value);
+                i += n;
+                mark = i;
+                continue;
+            }
+        }
+        if c == b'\\' && i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) {
+            title.push_str(&text[mark..i]);
+            i += 1;
+            mark = i;
+        }
+
+        i += 1;
+    }
+
+    None
+}
+
+// TODO: check that nested parens are really not allowed for refdefs
+fn scan_link_dest<'t, 'a>(
+    tree: &'t Tree<Item>,
+    next: TreePointer,
+    data: &'a str,
+    max_nesting: usize
+) -> Option<(usize, CowStr<'a>)>
+{
+    let bytes = &data.as_bytes();
+    let mut i = scan_ch(bytes, b'<');
+    let mut mark = i;
+    let mut buf = String::new();
+
+    if i != 0 {
+        // pointy links
+        while i < bytes.len() {
+            match bytes[i] {
+                b'\n' | b'\r' | b'<' => return None,
+                b'>' => {
+                    let cow = if buf.is_empty() {
+                        data[1..i].into()
+                    } else {
+                        buf.push_str(&data[mark..i]);
+                        buf.into()
+                    };
+                    return Some((i + 1, cow));
+                }
+                b'\\' if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) => {
+                    i += 1;
+                }
+                // TODO: do b'\r' as well?
+                b'&' => {
+                    if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                        buf.push_str(&data[mark..i]);
+                        buf.push_str(&value);
+                        i += n;
+                        mark = i;
+                        continue;
+                    }
+                }
+                b'\\' => {
+                    if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) {
+                        buf.push_str(&data[mark..i]);
+                        i += 1;
+                        mark = i;
+                    }
+                }
+                _ => {}
+            }
+            i += 1;
+        }
+        None
+    } else {
+        // non-pointy links
+        let mut nest = 0;
+        while i < bytes.len() {
+            match bytes[i] {
+                0x0 ... 0x20 => {
+                    break;
+                }
+                b'(' => {
+                    if nest > max_nesting {
+                        return None;
+                    }
+                    nest += 1;
+                }
+                b')' => {
+                    if nest == 0 {
+                        break;
+                    }
+                    nest -= 1;
+                }
+                // TODO: do b'\r' as well?
+                b'&' => {
+                    if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                        buf.push_str(&data[mark..i]);
+                        buf.push_str(&value);
+                        i += n;
+                        mark = i;
+                        continue;
+                    }
+                }
+                b'\\' => {
+                    if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) {
+                        buf.push_str(&data[mark..i]);
+                        i += 1;
+                        mark = i;
+                    }
+                }
+                _ => {}
+            }
+            i += 1;
+        }
+        let cow = if buf.is_empty() {
+            data[..i].into()
+        } else {
+            buf.push_str(&data[mark..i]);
+            buf.into()
+        };
+        Some((i, cow))
+    }
+}
+
+/// Returns next byte index, url and title.
+fn scan_inline_link<'t, 'a>(tree: &'t Tree<Item>, next: TreePointer, underlying: &'a str, start_ix: usize)
+    -> Option<(usize, CowStr<'a>, CowStr<'a>)>
+{
+    let mut ix = start_ix;
+    if scan_ch(&underlying.as_bytes()[ix..], b'(') == 0 {
+        return None;
+    }
+    ix += 1;
+
+    let slice = loop {
+        let node_end = tree[cur_ix].item.end;
+        ix += scan_while(&underlying.as_bytes()[ix..node_end], is_ascii_whitespace);
+        if ix == node_end {
+            if let TreePointer::Valid(next_ix) = tree[cur_ix].next {
+                cur_ix = next_ix;
+            } else {
+                return None;
+            }
+        } else {
+            break &underlying[ix..node_end];
+        }
+    };
+    
+    let next_node = tree[cur_ix].next;
+    let (dest_length, dest) = scan_link_dest(tree, next_node, slice, LINK_MAX_NESTED_PARENS)?;
+    dbg!(&dest);
+    ix += dest_length;
+
+    ix += scan_while(&underlying.as_bytes()[ix..], is_ascii_whitespace);
+
+    let title = if let Some((bytes_scanned, t)) = scan_link_title(underlying, ix) {
+        ix += bytes_scanned;
+        ix += scan_while(&underlying.as_bytes()[ix..], is_ascii_whitespace);
+        t
+    } else {
+        "".into()
+    };
+    if scan_ch(&underlying.as_bytes()[ix..], b')') == 0 {
+        return None;
+    }
+    ix += 1;
+
+    Some((ix, dest, title))
 }
 
 #[cfg(test)]
