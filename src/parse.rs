@@ -2573,9 +2573,82 @@ impl<'t, 'a> InlineScanner<'t, 'a> {
     }
 }
 
+/// Returns next byte index, url and title.
+fn scan_inline_link2<'t, 'a>(scanner: &mut InlineScanner<'t, 'a>) -> Option<(usize, CowStr<'a>, CowStr<'a>)> {
+    if !scanner.scan_ch(b'(') {
+        return None;
+    }
+    scanner.scan_while(is_ascii_whitespace);
 
+    // let (dest_length, dest) = scan_link_dest(underlying, ix, LINK_MAX_NESTED_PARENS)?;
+    // let dest = unescape(dest);
+    // ix += dest_length;
 
+    scanner.scan_while(is_ascii_whitespace);
 
+    // let title = if let Some((bytes_scanned, t)) = scan_link_title(underlying, ix) {
+    //     ix += bytes_scanned;
+    //     ix += scan_while(&underlying.as_bytes()[ix..], is_ascii_whitespace);
+    //     t
+    // } else {
+    //     "".into()
+    // };
+
+    if !scanner.scan_ch(b')') {
+        return None;
+    }
+
+    // Some((ix, dest, title))
+    None
+}
+
+// returns title cow
+fn scan_link_title2(scanner: &mut InlineScanner<'t, 'a>) -> Option<CowStr<'_>> {
+    let open = match scanner.next() {
+        Some(b @ b'\'') | Some(b @ b'\"') | Some(b @ b'(') => *b,
+        _ => return None,
+    };
+    let close = if open == b'(' { b')' } else { open };
+
+    let mut title = String::new();
+    let mut mark = scanner.ix;
+
+    while let Some(c) = scanner.next() {
+        if c == close {
+            let cow = if title.is_empty() {
+                scanner.text[mark..i].into()
+            } else {
+                title.push_str(&text[mark..i]);
+                title.into()
+            };
+            
+            return Some(cow);
+        }
+        if c == open {
+            return None;
+        }
+
+        // TODO: do b'\r' as well?
+        if c == b'&' {
+            if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                title.push_str(&text[mark..i]);
+                title.push_str(&value);
+                i += n;
+                mark = i;
+                continue;
+            }
+        }
+        if c == b'\\' {
+            if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) {
+                title.push_str(&text[mark..i]);
+                i += 1;
+                mark = i;
+            }
+        }
+    }
+
+    None
+}
 
 #[cfg(test)]
 mod test {
