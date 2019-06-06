@@ -25,6 +25,7 @@ use std::ops::{Index, Range};
 use std::cmp::min;
 
 use unicase::UniCase;
+use memchr::memchr;
 
 use crate::strings::CowStr;
 use crate::scanners::*;
@@ -2497,6 +2498,84 @@ impl<'a> Iterator for Parser<'a> {
         }
     }
 }
+
+impl<'t, 'a> Iterator for InlineScanner<'t, 'a> {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<u8> {
+        if self.ix < self.slice.len() {
+            let byte = self.slice[self.ix];
+            self.ix += 1;
+            Some(byte)
+        } else {
+            // end of slice, try next node
+            if let TreePointer::Valid(next_node) = self.tree[self.cur].next {
+                self.cur = next_node;
+                self.slice = &self.text.as_bytes()[..self.tree[next_node].item.end];
+                self.ix = self.tree[next_node].item.start;
+                self.next()
+            } else {
+                None
+            }
+        }
+    }
+}
+
+/// An iterator for bytes in an inline context.
+#[derive(Clone)]
+struct InlineScanner<'t, 'a> {
+    tree: &'t Tree<Item>,
+    text: &'a str,
+    slice: &'a [u8],
+    ix: usize,
+    cur: TreeIndex,
+}
+
+impl<'t, 'a> InlineScanner<'t, 'a> {
+    fn new(tree: &'t Tree<Item>, text: &'a str, ix: usize, cur: TreeIndex) -> InlineScanner<'t, 'a> {
+        let slice = &text.as_bytes()[..tree[cur].item.end];
+        InlineScanner { tree, text, slice, ix, cur }
+    }
+
+    // Consumes byte if it was next and returns true. Does
+    // nothing and returns false otherwise.
+    fn scan_ch(&mut self, c: u8) -> bool {
+        match self.next() {
+            Some(c) => true,
+            _ => {
+                self.ix -= 1;
+                false
+            }
+        }
+    }
+
+    fn scan_while<F>(&mut self, mut f: F) -> usize
+        where
+            F: FnMut(u8) -> bool
+    {
+        let mut n = 0;
+        while let Some(c) = self.next() {
+            if !f(c) {
+                self.ix -= 1;
+                break;
+            }
+            n += 1;
+        }
+        n
+    }
+
+    fn into_node_and_ix(self) -> (TreePointer, usize) {
+        if self.tree[self.cur].item.end == self.ix {
+            (self.tree[self.cur].next, self.ix)
+        } else {
+            (TreePointer::Valid(self.cur), self.ix)
+        }
+    }
+}
+
+
+
+
 
 #[cfg(test)]
 mod test {
