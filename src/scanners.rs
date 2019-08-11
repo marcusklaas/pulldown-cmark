@@ -855,25 +855,38 @@ pub(crate) fn scan_refdef_title(text: &str) -> Option<(usize, &str)> {
     None
 }
 
-// note: dest returned is raw, still needs to be unescaped
 // TODO: check that nested parens are really not allowed for refdefs
-// TODO(performance): this func should probably its own unescaping
 pub(crate) fn scan_link_dest(
     data: &str,
     start_ix: usize,
     max_next: usize,
-) -> Option<(usize, &str)> {
+) -> Option<(usize, CowStr<'_>)> {
     let bytes = &data.as_bytes()[start_ix..];
     let mut i = scan_ch(bytes, b'<');
+    let mut mark = i;
+    let mut buf = String::new();
 
     if i != 0 {
         // pointy links
         while i < bytes.len() {
             match bytes[i] {
                 b'\n' | b'\r' | b'<' => return None,
-                b'>' => return Some((i + 1, &data[(start_ix + 1)..(start_ix + i)])),
+                b'>' => {
+                    return Some((i + 1, data[(start_ix + 1)..(start_ix + i)].into()));
+                }
                 b'\\' if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) => {
+                    buf.push_str(&data[(start_ix + mark)..(start_ix + i)]);
+                    mark = i + 1;
                     i += 1;
+                }
+                b'&' => {
+                    if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                        buf.push_str(&data[(start_ix + mark)..(start_ix + i)]);
+                        buf.push_str(&value);
+                        i += n;
+                        mark = i;
+                        continue;
+                    }
                 }
                 _ => {}
             }
@@ -901,13 +914,29 @@ pub(crate) fn scan_link_dest(
                     nest -= 1;
                 }
                 b'\\' if i + 1 < bytes.len() && is_ascii_punctuation(bytes[i + 1]) => {
+                    buf.push_str(&data[(start_ix + mark)..(start_ix + i)]);
+                    mark = i + 1;
                     i += 1;
+                }
+                b'&' => {
+                    if let (n, Some(value)) = scan_entity(&bytes[i..]) {
+                        buf.push_str(&data[(start_ix + mark)..(start_ix + i)]);
+                        buf.push_str(&value);
+                        i += n;
+                        mark = i;
+                        continue;
+                    }
                 }
                 _ => {}
             }
             i += 1;
         }
-        Some((i, &data[start_ix..(start_ix + i)]))
+        if mark == 0 {
+            Some((i, data[start_ix..(start_ix + i)].into()))
+        } else {
+            buf.push_str(&data[(mark + start_ix)..(i + start_ix)]);
+            Some((i, buf.into()))
+        }
     }
 }
 
@@ -924,7 +953,6 @@ pub(crate) fn scan_inline_link(
     ix += scan_while(&underlying.as_bytes()[ix..], is_ascii_whitespace);
 
     let (dest_length, dest) = scan_link_dest(underlying, ix, LINK_MAX_NESTED_PARENS)?;
-    let dest = unescape(dest);
     ix += dest_length;
 
     ix += scan_while(&underlying.as_bytes()[ix..], is_ascii_whitespace);

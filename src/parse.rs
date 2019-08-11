@@ -1339,7 +1339,6 @@ impl<'a> FirstPass<'a> {
         if dest_length == 0 {
             return None;
         }
-        let dest = unescape(dest);
         i += dest_length;
 
         // no title
