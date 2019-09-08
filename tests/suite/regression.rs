@@ -405,8 +405,7 @@ fn regression_test_30() {
  
 some text
 "##;
-    let expected =
-        r##"<table><thead><tr><th>Markdown </th><th> Less </th><th> Pretty</th></tr></thead><tbody>
+    let expected = r##"<table><thead><tr><th>Markdown </th><th> Less </th><th> Pretty</th></tr></thead><tbody>
 </tbody></table>
 <p>some text</p>
 "##;
@@ -761,6 +760,22 @@ fn regression_test_56() {
 <p>b]: /foo</p>
 </blockquote>
 <p>[a b] [a > b]</p>
+"##;
+
+    test_markdown_html(original, expected);
+}
+
+#[test]
+fn regression_test_57() {
+    let original = r##"> Note: Though you should not rely on this, all pointers to <abbr
+> title="Dynamically Sized Types">DSTs</abbr> are currently twice the size of
+> the size of `usize` and have the same alignment.
+"##;
+    let expected = r##"<blockquote>
+<p>Note: Though you should not rely on this, all pointers to
+<abbr title="Dynamically Sized Types">DSTs</abbr> are currently twice the size of
+the size of <code>usize</code> and have the same alignment.</p>
+</blockquote>
 "##;
 
     test_markdown_html(original, expected);
