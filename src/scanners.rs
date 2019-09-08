@@ -857,14 +857,14 @@ fn scan_attribute_name(data: &[u8]) -> Option<usize> {
 
 /// Returns byte scanned (TODO: should it return new offset?)
 fn scan_attribute<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usize>
-    where WS: Copy + Fn(&[u8]) -> Option<usize>
+    where WS: Copy + Fn(usize) -> Option<usize>
 {
     let mut ix = scan_attribute_name(data)?;
-    let n_whitespace = whitespace_scanner(&data[ix..])?;
+    let n_whitespace = whitespace_scanner(ix)?;
     ix += n_whitespace;
     if scan_ch(&data[ix..], b'=') == 1 {
         ix += 1;
-        ix += whitespace_scanner(&data[ix..])?;
+        ix += whitespace_scanner(ix)?;
         ix += scan_attribute_value(&data[ix..], whitespace_scanner)?;
     } else if n_whitespace > 0 {
         // Leave whitespace for next attribute.
@@ -874,15 +874,18 @@ fn scan_attribute<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usize>
 }
 
 fn scan_attribute_value<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usize>
-    where WS: Copy + Fn(&[u8]) -> Option<usize>
+    where WS: Copy + Fn(usize) -> Option<usize>
 {
     let mut i = 0;
     match *data.get(0)? {
         b @ b'"' | b @ b'\'' => {
             i += 1;
             // FIXME: document this monstrosity below better
+            let mut j = 0;
             i += scan_while(&data[i..], |c| {
-                c != b && (c != b'\n' && c != b'\r' || whitespace_scanner(&[c]).is_some())
+                let res = c != b && (c != b'\n' && c != b'\r' || whitespace_scanner(i + j).is_some());
+                j += 1;
+                res
             });
             if scan_ch(&data[i..], b) == 0 {
                 return None;
@@ -969,9 +972,9 @@ pub(crate) fn is_html_tag(tag: &[u8]) -> bool {
 
 /// Assumes that `data` is preceded by `<`.
 pub(crate) fn scan_html_type_7(data: &[u8]) -> Option<usize> {
-    let i = scan_html_block_inner(data, |data| {
-        let ws = scan_whitespace_no_nl(data);
-        if scan_eol(&data[ws..]).is_some() {
+    let i = scan_html_block_inner(data, |global_ix| {
+        let ws = scan_whitespace_no_nl(&data[global_ix..]);
+        if scan_eol(&data[(global_ix + ws)..]).is_some() {
             None
         } else {
             Some(ws)
@@ -981,8 +984,8 @@ pub(crate) fn scan_html_type_7(data: &[u8]) -> Option<usize> {
     Some(i)
 }
 
-fn scan_html_block_inner<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usize>
-    where WS: Copy + Fn(&[u8]) -> Option<usize>
+pub(crate) fn scan_html_block_inner<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usize>
+    where WS: Copy + Fn(usize) -> Option<usize>
 {
     let close_tag_bytes = scan_ch(&data, b'/');
     let l = scan_while(&data[close_tag_bytes..], is_ascii_alpha);
@@ -994,7 +997,7 @@ fn scan_html_block_inner<WS>(data: &[u8], whitespace_scanner: WS) -> Option<usiz
 
     if close_tag_bytes == 0 {
         loop {
-            let whitespace = whitespace_scanner(&data[i..])?;
+            let whitespace = whitespace_scanner(i)?;
             i += whitespace;
             if let Some(b'/') | Some(b'>') = data.get(i) {
                 break;
@@ -1121,7 +1124,7 @@ fn scan_email(text: &str, start_ix: usize) -> Option<(usize, CowStr<'_>)> {
 
 /// Scan comment, declaration, or CDATA section, with initial "<!" already consumed.
 /// Returns byte offset on match.
-fn scan_inline_html_comment(
+pub(crate) fn scan_inline_html_comment(
     bytes: &[u8],
     mut ix: usize,
     scan_guard: &mut HtmlScanGuard,
@@ -1188,7 +1191,7 @@ fn scan_inline_html_comment(
 
 /// Scan processing directive, with initial "<?" already consumed.
 /// Returns the next byte offset on success.
-fn scan_inline_html_processing(
+pub(crate) fn scan_inline_html_processing(
     bytes: &[u8],
     mut ix: usize,
     scan_guard: &mut HtmlScanGuard,
@@ -1204,25 +1207,6 @@ fn scan_inline_html_processing(
     }
     scan_guard.processing = ix;
     None
-}
-
-/// Returns the next byte offset on success.
-pub(crate) fn scan_inline_html(
-    bytes: &[u8],
-    ix: usize,
-    scan_guard: &mut HtmlScanGuard,
-) -> Option<usize> {
-    let c = *bytes.get(ix)?;
-    if c == b'!' {
-        scan_inline_html_comment(bytes, ix + 1, scan_guard)
-    } else if c == b'?' {
-        scan_inline_html_processing(bytes, ix + 1, scan_guard)
-    } else {
-        let i = scan_html_block_inner(&bytes[ix..], |data| {
-            Some(scan_while(data, is_ascii_whitespace))
-        })?;
-        Some(i + ix)
-    }
 }
 
 #[cfg(test)]

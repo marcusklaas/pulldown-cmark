@@ -2004,7 +2004,8 @@ impl<'a> Parser<'a> {
                         let inline_html = if let TreePointer::Valid(next_ix) = next {
                             scan_inline_html(
                                 block_text.as_bytes(),
-                                self.tree[next_ix].item.start,
+                                &self.tree,
+                                next_ix,
                                 &mut self.html_scan_guard,
                             )
                         } else {
@@ -2725,6 +2726,47 @@ fn item_to_event<'a>(item: Item, text: &'a str, allocs: &Allocations<'a>) -> Eve
     };
 
     Event::Start(tag)
+}
+
+/// Returns the next byte offset on success.
+fn scan_inline_html(
+    // TODO: whenever we expect global types, represent this in variable name or type
+    bytes: &[u8],
+    tree: &Tree<Item>,
+    node_ix: TreeIndex,
+    scan_guard: &mut HtmlScanGuard,
+) -> Option<usize> {
+    let ix = tree[node_ix].item.start;
+    let c = *bytes.get(ix)?;
+    if c == b'!' {
+        scan_inline_html_comment(bytes, ix + 1, scan_guard)
+    } else if c == b'?' {
+        scan_inline_html_processing(bytes, ix + 1, scan_guard)
+    } else {
+        // TODO: explain what is going on here
+        let i = scan_html_block_inner(&bytes[ix..], |mut global_ix| {
+            loop {
+                if let Some(eol_bytes) = scan_eol(&bytes[global_ix..]) {
+                    global_ix += eol_bytes;
+                    let node = TreePointer::Valid(node_ix);
+                    if let TreePointer::Valid(next_node_ix) = scan_nodes_to_ix(tree, node, global_ix) {
+                        dbg!(std::str::from_utf8(&bytes[ix..]).unwrap());
+                        dbg!(global_ix);
+                        dbg!(tree[next_node_ix].item);
+                        dbg!(ix);
+                        global_ix = max(global_ix, tree[next_node_ix].item.start - ix);
+                    }
+                }
+                let ws = scan_whitespace_no_nl(&bytes[global_ix..]);
+                if ws == 0 {
+                    return Some(global_ix);
+                } else {
+                    global_ix += ws;
+                }
+            }
+        })?;
+        Some(i + ix)
+    }
 }
 
 // https://english.stackexchange.com/a/285573
