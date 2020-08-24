@@ -816,27 +816,36 @@ impl<'a> FirstPass<'a> {
                     begin_text = ix + 1;
                     LoopInstruction::ContinueAndSkip(0)
                 }
-                b'!' => {
-                    if ix + 1 < self.text.len() && bytes[ix + 1] == b'[' {
+                // b'!' => {
+                //     if ix + 1 < self.text.len() && bytes[ix + 1] == b'[' {
+                //         self.tree.append_text(begin_text, ix);
+                //         self.tree.append(Item {
+                //             start: ix,
+                //             end: ix + 2,
+                //             body: ItemBody::MaybeImage,
+                //         });
+                //         begin_text = ix + 2;
+                //         LoopInstruction::ContinueAndSkip(1)
+                //     } else {
+                //         LoopInstruction::ContinueAndSkip(0)
+                //     }
+                // }
+                b'[' => {
+                    if ix > 0 && bytes[ix - 1] == b'!' && (begin_text + 1 != ix || !(begin_text > 0 && bytes[begin_text - 1] == b'\\')) {
+                        self.tree.append_text(begin_text, ix - 1);
+                        self.tree.append(Item {
+                            start: ix - 1,
+                            end: ix + 1,
+                            body: ItemBody::MaybeImage,
+                        });
+                    } else {
                         self.tree.append_text(begin_text, ix);
                         self.tree.append(Item {
                             start: ix,
-                            end: ix + 2,
-                            body: ItemBody::MaybeImage,
+                            end: ix + 1,
+                            body: ItemBody::MaybeLinkOpen,
                         });
-                        begin_text = ix + 2;
-                        LoopInstruction::ContinueAndSkip(1)
-                    } else {
-                        LoopInstruction::ContinueAndSkip(0)
                     }
-                }
-                b'[' => {
-                    self.tree.append_text(begin_text, ix);
-                    self.tree.append(Item {
-                        start: ix,
-                        end: ix + 1,
-                        body: ItemBody::MaybeLinkOpen,
-                    });
                     begin_text = ix + 1;
                     LoopInstruction::ContinueAndSkip(0)
                 }
@@ -2604,7 +2613,7 @@ where
 const fn special_bytes() -> [bool; 256] {
     let mut bytes = [false; 256];
     bytes[b'<' as usize] = true;
-    bytes[b'!' as usize] = true;
+//    bytes[b'!' as usize] = true;
     bytes[b'[' as usize] = true;
     bytes[b'~' as usize] = true;
     bytes[b'`' as usize] = true;

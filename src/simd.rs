@@ -38,7 +38,7 @@ const fn compute_lookup() -> [u8; 16] {
     lookup[(b'[' & 0x0f) as usize] |= 1 << (b'[' >> 4);
     lookup[(b']' & 0x0f) as usize] |= 1 << (b']' >> 4);
     lookup[(b'<' & 0x0f) as usize] |= 1 << (b'<' >> 4);
-    lookup[(b'!' & 0x0f) as usize] |= 1 << (b'!' >> 4);
+//    lookup[(b'!' & 0x0f) as usize] |= 1 << (b'!' >> 4);
     lookup[(b'`' & 0x0f) as usize] |= 1 << (b'`' >> 4);
     lookup
 }
@@ -210,7 +210,7 @@ mod simd_test {
     #[test]
     fn exhaustive_search() {
         let chars = [
-            b'\n', b'\r', b'*', b'_', b'~', b'|', b'&', b'\\', b'[', b']', b'<', b'!', b'`',
+            b'\n', b'\r', b'*', b'_', b'~', b'|', b'&', b'\\', b'[', b']', b'<', /* b'!',*/ b'`',
         ];
 
         for &c in &chars {
