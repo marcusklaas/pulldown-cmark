@@ -164,6 +164,13 @@ impl<T: Default> Tree<T> {
         self.cur = self[cur_ix].next;
         self.cur
     }
+
+    /// Resets the entire tree for reuse.
+    pub(crate) fn clear(&mut self) {
+        self.nodes.truncate(1);
+        self.spine.clear();
+        self.cur = None;
+    }
 }
 
 impl<T> std::fmt::Debug for Tree<T>

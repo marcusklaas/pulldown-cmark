@@ -1,8 +1,6 @@
 //! The first pass resolves all block structure, generating an AST. Within a block, items
 //! are in a linear chain with potential inline markup identified.
 
-use std::cmp::max;
-
 use crate::linklabel::{scan_link_label_rest, LinkLabel};
 use crate::parse::{scan_containers, Allocations, Item, ItemBody, LinkDef};
 use crate::scanners::*;
@@ -14,38 +12,40 @@ use unicase::UniCase;
 
 /// Runs the first pass, which resolves the block structure of the document,
 /// and returns the resulting tree.
-pub(crate) fn run_first_pass<'a>(text: &'a str, options: Options) -> (Tree<Item>, Allocations<'a>) {
-    // This is a very naive heuristic for the number of nodes
-    // we'll need.
-    let start_capacity = max(128, text.len() / 32);
+pub(crate) fn run_first_pass<'a, 'b>(
+    text: &'a str,
+    options: Options,
+    tree: &'b mut Tree<Item>,
+    allocs: &'b mut Allocations<'a>,
+) {
     let lookup_table = &create_lut(&options);
     let first_pass = FirstPass {
         text,
-        tree: Tree::with_capacity(start_capacity),
+        tree,
         begin_list_item: false,
         last_line_blank: false,
-        allocs: Allocations::new(),
+        allocs,
         options,
         list_nesting: 0,
         lookup_table,
     };
-    first_pass.run()
+    first_pass.run();
 }
 
 /// State for the first parsing pass.
 struct FirstPass<'a, 'b> {
     text: &'a str,
-    tree: Tree<Item>,
+    tree: &'b mut Tree<Item>,
     begin_list_item: bool,
     last_line_blank: bool,
-    allocs: Allocations<'a>,
+    allocs: &'b mut Allocations<'a>,
     options: Options,
     list_nesting: usize,
     lookup_table: &'b LookupTable,
 }
 
 impl<'a, 'b> FirstPass<'a, 'b> {
-    fn run(mut self) -> (Tree<Item>, Allocations<'a>) {
+    fn run(mut self) {
         let mut ix = 0;
         while ix < self.text.len() {
             ix = self.parse_block(ix);
@@ -53,7 +53,6 @@ impl<'a, 'b> FirstPass<'a, 'b> {
         for _ in 0..self.tree.spine_len() {
             self.pop(ix);
         }
-        (self.tree, self.allocs)
     }
 
     /// Returns offset after block.

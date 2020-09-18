@@ -162,7 +162,12 @@ impl<'a> Parser<'a> {
         options: Options,
         broken_link_callback: BrokenLinkCallback<'a>,
     ) -> Parser<'a> {
-        let (mut tree, allocs) = run_first_pass(text, options);
+        // This is a very naive heuristic for the number of nodes
+        // we'll need.
+        let start_capacity = max(128, text.len() / 32);
+        let mut tree = Tree::with_capacity(start_capacity);
+        let mut allocs = Allocations::new();
+        run_first_pass(text, options, &mut tree, &mut allocs);
         tree.reset();
         let inline_stack = Default::default();
         let link_stack = Default::default();
@@ -177,6 +182,18 @@ impl<'a> Parser<'a> {
             link_stack,
             html_scan_guard,
         }
+    }
+
+    /// TODO: write docs
+    pub fn reuse(&mut self, new_text: &'a str) {
+        self.text = new_text;
+        self.allocs.clear();
+        self.tree.clear();
+        run_first_pass(new_text, self.options, &mut self.tree, &mut self.allocs);
+        self.tree.reset();
+        self.inline_stack.clear();
+        self.link_stack.clear();
+        self.html_scan_guard = Default::default();
     }
 
     /// Handle inline markup.
@@ -1012,6 +1029,11 @@ impl InlineStack {
     fn push(&mut self, el: InlineEl) {
         self.stack.push(el)
     }
+
+    fn clear(&mut self) {
+        self.stack.clear();
+        self.lower_bounds = [0; 7];
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -1207,7 +1229,7 @@ pub(crate) struct Allocations<'a> {
 }
 
 impl<'a> Allocations<'a> {
-    pub fn new() -> Self {
+    pub(crate) fn new() -> Self {
         Self {
             refdefs: HashMap::new(),
             links: Vec::with_capacity(128),
@@ -1216,22 +1238,34 @@ impl<'a> Allocations<'a> {
         }
     }
 
-    pub fn allocate_cow(&mut self, cow: CowStr<'a>) -> CowIndex {
+    pub(crate) fn allocate_cow(&mut self, cow: CowStr<'a>) -> CowIndex {
         let ix = self.cows.len();
         self.cows.push(cow);
         CowIndex(ix)
     }
 
-    pub fn allocate_link(&mut self, ty: LinkType, url: CowStr<'a>, title: CowStr<'a>) -> LinkIndex {
+    pub(crate) fn allocate_link(
+        &mut self,
+        ty: LinkType,
+        url: CowStr<'a>,
+        title: CowStr<'a>,
+    ) -> LinkIndex {
         let ix = self.links.len();
         self.links.push((ty, url, title));
         LinkIndex(ix)
     }
 
-    pub fn allocate_alignment(&mut self, alignment: Vec<Alignment>) -> AlignmentIndex {
+    pub(crate) fn allocate_alignment(&mut self, alignment: Vec<Alignment>) -> AlignmentIndex {
         let ix = self.alignments.len();
         self.alignments.push(alignment);
         AlignmentIndex(ix)
+    }
+
+    pub(crate) fn clear(&mut self) {
+        self.refdefs.clear();
+        self.links.clear();
+        self.cows.clear();
+        self.alignments.clear();
     }
 }
 

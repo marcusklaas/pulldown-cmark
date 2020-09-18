@@ -95,6 +95,40 @@ This is a [link](example.com). **Cool!**
 
         b.iter(|| Parser::new_ext(input, Options::empty()).count());
     });
+
+    c.bench_function("reuse_naive", |b| {
+        let input = "This is a [link](example.com). **Cool!**";
+
+        b.iter(|| {
+            let mut total_count = 0;
+            for _ in 0..100 {
+                let mut parser = Parser::new(input);
+                while parser.next().is_some() {
+                    total_count += 1;
+                }
+            }
+            total_count
+        });
+    });
+
+    c.bench_function("reuse_new", |b| {
+        let input = "This is a [link](example.com). **Cool!**";
+
+        b.iter(|| {
+            let mut parser = Parser::new(input);
+            let mut total_count = 0;
+            while parser.next().is_some() {
+                total_count += 1;
+            }
+            for _ in 0..99 {
+                parser.reuse(input);
+                while parser.next().is_some() {
+                    total_count += 1;
+                }
+            }
+            total_count
+        });
+    });
 }
 
 criterion_group!(benches, criterion_benchmark);
